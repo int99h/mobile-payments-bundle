@@ -2,7 +2,8 @@
 
 namespace AnyKey\MobilePaymentsBundle\Factory;
 
-use AnyKey\MobilePaymentsBundle\Exception\ProviderException;
+use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
 
 /**
@@ -11,7 +12,9 @@ use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
  */
 class ProviderFactory
 {
+    /** @var array */
     private $providers = [];
+    /** @var array */
     private $enabled = [];
 
     /**
@@ -31,7 +34,8 @@ class ProviderFactory
     /**
      * @param string $alias
      * @return ProviderInterface
-     * @throws ProviderException
+     * @throws ConfigurationException
+     * @throws RuntimeException
      */
     public function get(string $alias): ProviderInterface
     {
@@ -39,8 +43,9 @@ class ProviderFactory
             return $this->enabled[$alias];
         }
         if (array_key_exists($alias, $this->providers)) {
-            throw new ProviderException("{$alias} provider not enabled");
+            $provider = $this->providers[$alias];
+            throw new ConfigurationException($provider, 'provider not enabled');
         }
-        throw new ProviderException("{$alias} provider not exist");
+        throw new RuntimeException("{$alias} provider not exist");
     }
 }
