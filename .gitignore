@@ -1,6 +1,4 @@
 ###> wellhell/mobile-payments-bundle ###
 /.idea
 /vendor/
-/.env.test
-/config
 ###> wellhell/mobile-payments-bundle ###
