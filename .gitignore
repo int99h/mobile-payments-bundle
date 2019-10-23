@@ -1,4 +1,5 @@
-###> wellhell/mobile-payments-bundle ###
+###> anykey/mobile-payments-bundle ###
 /.idea
 /vendor/
-###> wellhell/mobile-payments-bundle ###
+/var
+###> anykey/mobile-payments-bundle ###
