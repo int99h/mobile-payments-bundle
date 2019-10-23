@@ -1,0 +1,46 @@
+{
+    "name": "anykey/mobile-payments-bundle",
+    "description": "Mobile payment receipts validation",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "keywords": [
+        "mobile",
+        "payments",
+        "receipt"
+    ],
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "symfony/config": "^4.3",
+        "symfony/flex": "^1.3",
+        "symfony/framework-bundle": "^4.3",
+        "symfony/yaml": "^4.3",
+        "aporat/store-receipt-validator": "^3.3"
+    },
+    "require-dev": {
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AnyKey\\MobilePaymentsBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AnyKey\\MobilePaymentsBundle\\Tests\\": "tests/"
+        }
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "id": "01DQWJYBEXCQ7C4Y1ZZ0AT0ATX",
+            "allow-contrib": false
+        }
+    }
+}

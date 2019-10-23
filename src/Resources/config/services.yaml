@@ -1,0 +1,8 @@
+services:
+  # factory
+  AnyKey\MobilePaymentsBundle\Factory\ProviderFactory: ~
+  # providers
+  AnyKey\MobilePaymentsBundle\Providers\Amazon: ~
+  AnyKey\MobilePaymentsBundle\Providers\Apple: ~
+  AnyKey\MobilePaymentsBundle\Providers\Google: ~
+  AnyKey\MobilePaymentsBundle\Providers\Windows: ~
