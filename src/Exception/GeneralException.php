@@ -3,10 +3,9 @@
 namespace AnyKey\MobilePaymentsBundle\Exception;
 
 /**
- * Class ProviderException
+ * Class GeneralException
  * @package AnyKey\MobilePaymentsBundle\Exception
  */
-abstract class AbstractException extends \Exception
+class GeneralException extends \Exception
 {
-    // just an abstraction layer
 }

@@ -9,7 +9,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
  * Class ConfigurationException
  * @package AnyKey\MobilePaymentsBundle\Exception
  */
-class ConfigurationException extends AbstractException
+class ConfigurationException extends GeneralException
 {
     /**
      * ConfigurationException constructor.

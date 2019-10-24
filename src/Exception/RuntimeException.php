@@ -8,7 +8,7 @@ use Throwable;
  * Class RuntimeException
  * @package AnyKey\MobilePaymentsBundle\Exception
  */
-class RuntimeException extends AbstractException
+class RuntimeException extends GeneralException
 {
     /**
      * RuntimeException constructor.
