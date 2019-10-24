@@ -1,6 +1,7 @@
 ###> anykey/mobile-payments-bundle ###
 /.idea
 /vendor/
+/composer.lock
 ###> anykey/mobile-payments-bundle ###
 
 ###> phpunit/phpunit ###

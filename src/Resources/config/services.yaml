@@ -6,3 +6,15 @@ services:
   AnyKey\MobilePaymentsBundle\Providers\Apple: ~
   AnyKey\MobilePaymentsBundle\Providers\Google: ~
   AnyKey\MobilePaymentsBundle\Providers\Windows: ~
+
+mobile_payments:
+  providers:
+    apple_appstore:
+      enabled: true # enabled by default
+      mode: '%env(APPLE_MODE)%' # production or sandbox, sandbox by default
+      secret: '%env(APPLE_PAYMENT_KEY)%'
+    google_play:
+      enabled: true # enabled by default
+      package_name: '%env(GOOGLE_PACKAGE_NAME)%'
+      billing_key: '%env(GOOGLE_BILLING_KEY)%'
+      payment_config: '%env(GOOGLE_PAYMENT_CONFIG)%'
