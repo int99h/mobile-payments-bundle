@@ -1,5 +1,9 @@
 ###> anykey/mobile-payments-bundle ###
 /.idea
 /vendor/
-/var
 ###> anykey/mobile-payments-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

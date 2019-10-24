@@ -49,7 +49,7 @@ class Google extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'google.play';
+        return 'google_play';
     }
 
     /**

@@ -34,7 +34,7 @@ class Windows extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'windows.store';
+        return 'windows_store';
     }
 
     /**

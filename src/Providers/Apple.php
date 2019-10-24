@@ -46,7 +46,7 @@ class Apple extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'apple.appstore';
+        return 'apple_appstore';
     }
 
     /**

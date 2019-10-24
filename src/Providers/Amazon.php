@@ -47,7 +47,7 @@ class Amazon extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'amazon.appstore';
+        return 'amazon_appstore';
     }
 
     /**
