@@ -27,11 +27,11 @@ class Amazon extends AbstractProvider
      * Amazon constructor.
      * @param bool $enabled
      * @param string $mode
-     * @param string|null $secret
+     * @param string $secret
      * @throws ConfigurationException
      * @throws \ReceiptValidator\RunTimeException
      */
-    public function __construct(bool $enabled, string $mode, ?string $secret)
+    public function __construct(bool $enabled, string $mode, string $secret)
     {
         $this->setEnabled($enabled);
         if ($this->isEnabled()) {

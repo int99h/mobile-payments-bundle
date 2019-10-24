@@ -82,9 +82,11 @@ class ConfigurationTest extends TestCase
                 'amazon_appstore' => [
                     'enabled' => false,
                     'mode' => 'sandbox',
+                    'secret' => null,
                 ],
                 'windows_store' => [
                     'enabled' => false,
+                    'cache' => null,
                 ],
             ],
         ];

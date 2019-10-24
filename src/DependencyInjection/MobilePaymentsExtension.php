@@ -27,10 +27,10 @@ class MobilePaymentsExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
 
-        $apple = $config['providers']['apple.appstore'];
-        $amazon = $config['providers']['amazon.appstore'];
-        $google = $config['providers']['google.play'];
-        $windows = $config['providers']['windows.store'];
+        $apple = $config['providers']['apple_appstore'];
+        $amazon = $config['providers']['amazon_appstore'];
+        $google = $config['providers']['google_play'];
+        $windows = $config['providers']['windows_store'];
 
         /** Providers */
         // Apple
@@ -47,7 +47,7 @@ class MobilePaymentsExtension extends Extension
             ->setAutowired(true)
             ->setArgument('$enabled', $amazon['enabled'])
             ->setArgument('$mode', $amazon['mode'])
-            ->setArgument('$secret', $amazon['secret'])
+            ->setArgument('$secret', $amazon['secret'] ?? null)
         ;
         // Google
         $container->getDefinition(Providers\Google::class)
@@ -66,7 +66,7 @@ class MobilePaymentsExtension extends Extension
         ;
         if ($windows['cache'] && $windows['cache'] instanceof CacheInterface) {
             $container->getDefinition(Providers\Windows::class)
-                ->setArgument('$cache', $windows['cache'])
+                ->setArgument('$cache', $windows['cache'] ?? null)
             ;
         }
 
