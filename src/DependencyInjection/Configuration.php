@@ -19,7 +19,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('mobile_payments');
         $root = $treeBuilder->getRootNode();
         $root->children()->arrayNode('providers')
-            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('amazon_appstore')->normalizeKeys(false)
                     ->canBeEnabled()

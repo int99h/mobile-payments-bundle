@@ -13,6 +13,8 @@ use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
  */
 class Amazon extends AbstractProvider
 {
+    public const NAME = 'amazon_appstore';
+
     /** @var bool */
     private $sandbox;
     /** @var string */
@@ -47,7 +49,7 @@ class Amazon extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'amazon_appstore';
+        return self::NAME;
     }
 
     /**

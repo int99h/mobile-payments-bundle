@@ -13,6 +13,8 @@ use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
  */
 class Windows extends AbstractProvider
 {
+    public const NAME = 'windows_store';
+
     /** @var CacheAdapter */
     private $cache;
     /** @var Validator */
@@ -34,7 +36,7 @@ class Windows extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'windows_store';
+        return self::NAME;
     }
 
     /**

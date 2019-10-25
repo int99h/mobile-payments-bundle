@@ -14,6 +14,8 @@ use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
  */
 class Google extends AbstractProvider
 {
+    public const NAME = 'google_play';
+
     /** @var string */
     private $packageName;
     /** @var string */
@@ -49,7 +51,7 @@ class Google extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'google_play';
+        return self::NAME;
     }
 
     /**

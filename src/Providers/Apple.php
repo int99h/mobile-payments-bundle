@@ -14,6 +14,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class Apple extends AbstractProvider
 {
+    public const NAME = 'apple_appstore';
+
     /** @var bool */
     private $sandbox;
     /** @var string */
@@ -46,7 +48,7 @@ class Apple extends AbstractProvider
      */
     public function getAlias(): string
     {
-        return 'apple_appstore';
+        return self::NAME;
     }
 
     /**
