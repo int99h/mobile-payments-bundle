@@ -36,9 +36,26 @@ class ProviderFactory
     /**
      * @return array
      */
+    public function getAvailable(): array
+    {
+        return array_keys($this->providers);
+    }
+
+    /**
+     * @return array
+     */
     public function getEnabled(): array
     {
-        return $this->enabled;
+        return array_keys($this->enabled);
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isExist(string $name): bool
+    {
+        return array_key_exists($name, $this->providers);
     }
 
     /**
@@ -52,20 +69,73 @@ class ProviderFactory
 
     /**
      * @param string $name
+     * @example get(Provider::class) or get(Provider::getName())
      * @return ProviderInterface
      * @throws ConfigurationException
      * @throws RuntimeException
      */
     public function get(string $name): ProviderInterface
     {
-        if (array_key_exists($name, $this->enabled)) {
-            return $this->enabled[$name];
+        // validate
+        if (empty($name)) {
+            throw new RuntimeException("Name not defined!");
         }
+        // try class
+        $provider = $this->getByClassName($name);
+        // try alias
+        if (is_null($provider)) {
+            $provider = $this->getByAlias($name);
+        }
+        if (is_null($provider)) {
+            $available = implode(', ', $this->getAvailable());
+            throw new RuntimeException("{$name} provider not exist. Available providers: {$available}");
+        }
+
+        return $provider;
+    }
+
+    /**
+     * @param string $name
+     * @return ProviderInterface|null
+     * @throws ConfigurationException
+     */
+    private function getByClassName(string $name): ?ProviderInterface
+    {
+        $result = null;
+        if (class_exists($name)) {
+            // try to get from available
+            foreach ($this->providers as $provider) {
+                if (get_class($provider) === $name) {
+                    $result = $provider;
+                    break;
+                }
+            }
+            // check enabled
+            if ($result instanceof ProviderInterface && !$result->isEnabled()) {
+                throw new ConfigurationException($result, 'provider not enabled');
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param string $name
+     * @return ProviderInterface|null
+     * @throws ConfigurationException
+     */
+    private function getByAlias(string $name): ?ProviderInterface
+    {
+        $result = null;
+        // try to get from available
         if (array_key_exists($name, $this->providers)) {
-            $provider = $this->providers[$name];
-            throw new ConfigurationException($provider, 'provider not enabled');
+            $result = $this->providers[$name];
         }
-        var_dump($this->providers[$name]);exit;
-        throw new RuntimeException("{$name} provider not exist");
+        // check enabled
+        if ($result instanceof ProviderInterface && !$result->isEnabled()) {
+            throw new ConfigurationException($result, 'provider not enabled');
+        }
+
+        return $result;
     }
 }
