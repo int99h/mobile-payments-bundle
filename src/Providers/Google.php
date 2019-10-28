@@ -2,6 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use ReceiptValidator\GooglePlay\PurchaseResponse;
 use ReceiptValidator\GooglePlay\SubscriptionResponse;
 use ReceiptValidator\GooglePlay\Validator;
@@ -18,9 +19,9 @@ class Google extends AbstractProvider
 
     /** @var string */
     private $packageName;
-    /** @var string */
+    /** @var string|null */
     private $billingKey;
-    /** @var array */
+    /** @var array|null */
     private $paymentConfig;
 
     /** @var Validator */
@@ -29,19 +30,19 @@ class Google extends AbstractProvider
     /**
      * Google constructor.
      * @param bool $enabled
-     * @param string $packageName
-     * @param string $billingKey
-     * @param string $paymentConfig
+     * @param string|null $packageName
+     * @param string|null $billingKey
+     * @param string|null $paymentConfig
      * @throws ConfigurationException
      * @throws \Google_Exception
      */
-    public function __construct(bool $enabled, string $packageName, string $billingKey, string $paymentConfig)
+    public function __construct(bool $enabled, ?string $packageName, ?string $billingKey, ?string $paymentConfig)
     {
         $this->setEnabled($enabled);
         if ($this->isEnabled()) {
             $this->packageName = $packageName;
             $this->billingKey = $billingKey;
-            $this->paymentConfig = json_decode(base64_decode($paymentConfig), true);
+            $this->paymentConfig = \GuzzleHttp\json_decode(base64_decode($paymentConfig), true);
             $this->initValidator();
         }
     }
@@ -49,7 +50,7 @@ class Google extends AbstractProvider
     /**
      * @return string
      */
-    public function getAlias(): string
+    public static function getName(): string
     {
         return self::NAME;
     }
@@ -127,7 +128,6 @@ class Google extends AbstractProvider
 
     /**
      * @throws ConfigurationException
-     * @throws \Google_Exception
      */
     protected function initValidator(): void
     {

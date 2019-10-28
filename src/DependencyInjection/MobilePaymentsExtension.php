@@ -2,8 +2,10 @@
 
 namespace AnyKey\MobilePaymentsBundle\DependencyInjection;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -40,6 +42,7 @@ class MobilePaymentsExtension extends Extension
             ->setArgument('$enabled', $apple['enabled'])
             ->setArgument('$mode', $apple['mode'])
             ->setArgument('$paymentKey', $apple['payment_key'])
+            ->addTag(ProviderInterface::TAG, ['alias' => Providers\Apple::getName()])
         ;
         // Amazon
         $container->getDefinition(Providers\Amazon::class)
@@ -48,6 +51,7 @@ class MobilePaymentsExtension extends Extension
             ->setArgument('$enabled', $amazon['enabled'])
             ->setArgument('$mode', $amazon['mode'])
             ->setArgument('$secret', $amazon['secret'] ?? null)
+            ->addTag(ProviderInterface::TAG, ['alias' => Providers\Amazon::getName()])
         ;
         // Google
         $container->getDefinition(Providers\Google::class)
@@ -57,12 +61,14 @@ class MobilePaymentsExtension extends Extension
             ->setArgument('$packageName', $google['package_name'])
             ->setArgument('$billingKey', $google['billing_key'])
             ->setArgument('$paymentConfig', $google['payment_config'])
+            ->addTag(ProviderInterface::TAG, ['alias' => Providers\Google::getName()])
         ;
         // Windows
         $container->getDefinition(Providers\Windows::class)
             ->setPublic(true)
             ->setAutowired(true)
             ->setArgument('$enabled', $windows['enabled'])
+            ->addTag(ProviderInterface::TAG, ['alias' => Providers\Windows::getName()])
         ;
         if ($windows['cache'] && $windows['cache'] instanceof CacheInterface) {
             $container->getDefinition(Providers\Windows::class)
@@ -73,8 +79,10 @@ class MobilePaymentsExtension extends Extension
         /** Factory */
         $container->getDefinition(ProviderFactory::class)
             ->setPublic(true)
+            ->setAutoconfigured(true)
+//            ->setArgument('$providers', $providers)
             ->setAutowired(true)
-            ->setArgument('$providers', $config['providers'])
         ;
+        $container->compile(true);
     }
 }

@@ -8,8 +8,7 @@ namespace AnyKey\MobilePaymentsBundle\Interfaces;
  */
 interface ProviderInterface
 {
-    public const MODE_SANDBOX = 'sandbox';
-    public const MODE_PRODUCTION = 'production';
+    public const TAG = 'mobile_payment.provider';
 
     /**
      * @return bool
@@ -19,5 +18,5 @@ interface ProviderInterface
     /**
      * @return string
      */
-    public function getAlias(): string;
+    public static function getName(): string;
 }

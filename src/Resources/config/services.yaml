@@ -1,6 +1,8 @@
 services:
     # factory
-    AnyKey\MobilePaymentsBundle\Factory\ProviderFactory: ~
+    AnyKey\MobilePaymentsBundle\Factory\ProviderFactory:
+        arguments:
+            - !tagged mobile_payment.provider
     # providers
     AnyKey\MobilePaymentsBundle\Providers\Amazon: ~
     AnyKey\MobilePaymentsBundle\Providers\Apple: ~

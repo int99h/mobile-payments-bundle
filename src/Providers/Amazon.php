@@ -2,6 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use ReceiptValidator\Amazon\Validator;
 use ReceiptValidator\Amazon\Response;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
@@ -19,7 +20,7 @@ class Amazon extends AbstractProvider
     private $sandbox;
     /** @var string */
     private $endpoint;
-    /** @var string */
+    /** @var string|null */
     private $secret;
 
     /** @var Validator */
@@ -28,12 +29,12 @@ class Amazon extends AbstractProvider
     /**
      * Amazon constructor.
      * @param bool $enabled
-     * @param string $mode
-     * @param string $secret
+     * @param string|null $mode
+     * @param string|null $secret
      * @throws ConfigurationException
      * @throws \ReceiptValidator\RunTimeException
      */
-    public function __construct(bool $enabled, string $mode, string $secret)
+    public function __construct(bool $enabled, ?string $mode, ?string $secret)
     {
         $this->setEnabled($enabled);
         if ($this->isEnabled()) {
@@ -47,7 +48,7 @@ class Amazon extends AbstractProvider
     /**
      * @return string
      */
-    public function getAlias(): string
+    public static function getName(): string
     {
         return self::NAME;
     }

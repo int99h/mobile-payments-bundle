@@ -2,6 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use ReceiptValidator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
 use AnyKey\MobilePaymentsBundle\Adapters\CacheAdapter;
@@ -20,6 +21,11 @@ class Windows extends AbstractProvider
     /** @var Validator */
     private $validator;
 
+    /**
+     * Windows constructor.
+     * @param bool $enabled
+     * @param CacheInterface|null $cache
+     */
     public function __construct(bool $enabled, CacheInterface $cache = null)
     {
         $this->setEnabled($enabled);
@@ -34,7 +40,7 @@ class Windows extends AbstractProvider
     /**
      * @return string
      */
-    public function getAlias(): string
+    public static function getName(): string
     {
         return self::NAME;
     }

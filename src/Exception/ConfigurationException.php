@@ -26,7 +26,7 @@ class ConfigurationException extends GeneralException
     )
     {
         parent::__construct(
-            "{$provider->getAlias()} configuration error: {$message}",
+            "{$provider::getName()} configuration error: {$message}",
             $code,
             $previous
         );

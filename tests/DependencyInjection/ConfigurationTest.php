@@ -14,11 +14,9 @@ use Symfony\Component\Config\Definition\NodeInterface;
 class ConfigurationTest extends TestCase
 {
     /**
-     * @dataProvider dataTestConfiguration
-     * @param mixed $inputConfig
-     * @param mixed $expectedConfig
+     * Test DI Configuration
      */
-    public function testConfiguration($inputConfig, $expectedConfig)
+    public function testConfiguration()
     {
         $configuration = new Configuration();
 
@@ -26,25 +24,15 @@ class ConfigurationTest extends TestCase
         $this->assertTrue($tree instanceof TreeBuilder);
         $node = $tree->buildTree();
         $this->assertTrue($node instanceof NodeInterface);
-        $normalizedConfig = $node->normalize($inputConfig);
+        $normalizedConfig = $node->normalize($this->getInputConfig());
         $finalizedConfig = $node->finalize($normalizedConfig);
 
-        $this->assertEquals($expectedConfig, $finalizedConfig);
+        $this->assertEquals($this->getExpectedConfig(), $finalizedConfig);
     }
 
     /**
      * @return array
      */
-    public function dataTestConfiguration()
-    {
-        return [
-            'test configuration' => [
-                $this->getInputConfig(),
-                $this->getExpectedConfig(),
-            ],
-        ];
-    }
-
     private function getInputConfig(): array
     {
         return [
@@ -58,12 +46,15 @@ class ConfigurationTest extends TestCase
                     'enabled' => true,
                     'package_name' => "secret",
                     'billing_key' => "secret",
-                    'payment_config' => "secret",
+                    'payment_config' => $this->getGoogleConfig(),
                 ],
             ],
         ];
     }
 
+    /**
+     * @return array
+     */
     private function getExpectedConfig(): array
     {
         return [
@@ -77,7 +68,7 @@ class ConfigurationTest extends TestCase
                     'enabled' => true,
                     'package_name' => "secret",
                     'billing_key' => "secret",
-                    'payment_config' => "secret",
+                    'payment_config' => $this->getGoogleConfig(),
                 ],
                 'amazon_appstore' => [
                     'enabled' => false,
@@ -90,5 +81,26 @@ class ConfigurationTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    private function getGoogleConfig(): string
+    {
+        $config = '{
+          "type": "service_account",
+          "project_id": "xxxxx",
+          "private_key_id": "xxxxx",
+          "private_key": "xxxxx",
+          "client_email": "xxxxx",
+          "client_id": "xxxxx",
+          "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+          "token_uri": "https://accounts.google.com/o/oauth2/token",
+          "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+          "client_x509_cert_url": "xxxxx"
+        }';
+
+        return base64_encode($config);
     }
 }

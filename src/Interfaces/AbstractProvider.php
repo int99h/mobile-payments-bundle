@@ -1,16 +1,18 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Providers;
+namespace AnyKey\MobilePaymentsBundle\Interfaces;
 
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
-use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
 
 /**
  * Class AbstractProvider
- * @package AnyKey\MobilePaymentsBundle\Providers
+ * @package AnyKey\MobilePaymentsBundle\Interfaces
  */
 abstract class AbstractProvider implements ProviderInterface
 {
+    public const MODE_SANDBOX = 'sandbox';
+    public const MODE_PRODUCTION = 'production';
+
     /** @var bool */
     protected $enabled;
     private $validator;

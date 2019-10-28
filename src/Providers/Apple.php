@@ -2,6 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use ReceiptValidator\iTunes\ResponseInterface;
 use ReceiptValidator\iTunes\Validator;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
@@ -20,7 +21,7 @@ class Apple extends AbstractProvider
     private $sandbox;
     /** @var string */
     private $endpoint;
-    /** @var string */
+    /** @var string|null */
     private $paymentKey;
     /** @var Validator */
     private $validator;
@@ -28,11 +29,11 @@ class Apple extends AbstractProvider
     /**
      * Apple constructor.
      * @param bool $enabled
-     * @param string $mode
-     * @param string $paymentKey
+     * @param string|null $mode
+     * @param string|null $paymentKey
      * @throws ConfigurationException
      */
-    public function __construct(bool $enabled, string $mode, string $paymentKey)
+    public function __construct(bool $enabled, ?string $mode, ?string $paymentKey)
     {
         $this->setEnabled($enabled);
         if ($this->isEnabled()) {
@@ -46,7 +47,7 @@ class Apple extends AbstractProvider
     /**
      * @return string
      */
-    public function getAlias(): string
+    public static function getName(): string
     {
         return self::NAME;
     }
