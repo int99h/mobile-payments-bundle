@@ -17,14 +17,15 @@ class Apple extends AbstractProvider
 {
     public const NAME = 'apple_appstore';
 
+    /** @var Validator */
+    protected $validator;
+
     /** @var bool */
     private $sandbox;
     /** @var string */
     private $endpoint;
     /** @var string|null */
     private $paymentKey;
-    /** @var Validator */
-    private $validator;
 
     /**
      * Apple constructor.

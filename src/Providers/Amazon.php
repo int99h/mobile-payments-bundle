@@ -17,15 +17,15 @@ class Amazon extends AbstractProvider
 {
     public const NAME = 'amazon_appstore';
 
+    /** @var Validator */
+    protected $validator;
+
     /** @var bool */
     private $sandbox;
     /** @var string */
     private $endpoint;
     /** @var string|null */
     private $secret;
-
-    /** @var Validator */
-    private $validator;
 
     /**
      * Amazon constructor.

@@ -17,15 +17,15 @@ class Google extends AbstractProvider
 {
     public const NAME = 'google_play';
 
+    /** @var Validator */
+    protected $validator;
+
     /** @var string */
     private $packageName;
     /** @var string|null */
     private $billingKey;
     /** @var array|null */
     private $paymentConfig;
-
-    /** @var Validator */
-    private $validator;
 
     /**
      * Google constructor.

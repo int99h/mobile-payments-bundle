@@ -16,10 +16,11 @@ class Windows extends AbstractProvider
 {
     public const NAME = 'windows_store';
 
+    /** @var Validator */
+    protected $validator;
+
     /** @var CacheAdapter */
     private $cache;
-    /** @var Validator */
-    private $validator;
 
     /**
      * Windows constructor.
