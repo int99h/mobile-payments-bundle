@@ -80,9 +80,7 @@ class MobilePaymentsExtension extends Extension
         $container->getDefinition(ProviderFactory::class)
             ->setPublic(true)
             ->setAutoconfigured(true)
-//            ->setArgument('$providers', $providers)
             ->setAutowired(true)
         ;
-        $container->compile(true);
     }
 }

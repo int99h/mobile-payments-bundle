@@ -26,6 +26,7 @@ class MobilePaymentsExtensionTest extends TestCase
         $container->setParameter('kernel.debug', true);
         $loader = new MobilePaymentsExtension();
         $loader->load([$this->getConfig()], $container);
+        $container->compile();
         // are services loaded
         $this->assertTrue($container->has(ProviderFactory::class));
         $this->assertTrue($container->has(Amazon::class));
