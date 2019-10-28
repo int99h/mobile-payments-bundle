@@ -16,6 +16,12 @@ interface ProviderInterface
     public function isEnabled();
 
     /**
+     * @param mixed ...$config
+     * @return mixed
+     */
+    public function validate(...$config);
+
+    /**
      * @return string
      */
     public static function getName(): string;

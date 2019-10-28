@@ -56,13 +56,14 @@ class Google extends AbstractProvider
     }
 
     /**
-     * @param string $receipt
-     * @param bool $modePurchase
-     * @return PurchaseResponse|SubscriptionResponse
+     * @param mixed ...$config [string $receipt, bool $modePurchase]
+     * @return mixed|PurchaseResponse|SubscriptionResponse
      * @throws RuntimeException
      */
-    public function validate(string $receipt, bool $modePurchase = false)
+    public function validate(...$config)
     {
+        $receipt = $config[0] ?? null;
+        $modePurchase = $config[1] ?? false;
         $data = json_decode(base64_decode($receipt), true);
         $productId = $data['productId'] ?? null;
         $purchaseToken = $data['purchaseToken'] ?? null;

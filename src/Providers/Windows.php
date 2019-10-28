@@ -46,12 +46,13 @@ class Windows extends AbstractProvider
     }
 
     /**
-     * @param string $receipt
-     * @return bool
+     * @param mixed ...$config [string $receipt]
+     * @return bool|mixed
      * @throws RuntimeException
      */
-    public function validate(string $receipt)
+    public function validate(...$config)
     {
+        $receipt = $config[0] ?? null;
         try {
             $response = $this->validator->validate($receipt);
         } catch (\Exception $e) {

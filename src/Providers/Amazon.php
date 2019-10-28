@@ -3,6 +3,7 @@
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use GuzzleHttp\Exception\GuzzleException;
 use ReceiptValidator\Amazon\Validator;
 use ReceiptValidator\Amazon\Response;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
@@ -62,15 +63,15 @@ class Amazon extends AbstractProvider
     }
 
     /**
-     * @param string $userId
-     * @param string $receiptId
+     * @param mixed ...$config [string $userId, string $receiptId]
      * @return Response
      * @throws ConfigurationException
      * @throws RuntimeException
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function validate(string $userId, string $receiptId): Response
+    public function validate(...$config)
     {
+        $userId = $config[0] ?? null;
+        $receiptId = $config[1] ?? null;
         $this->checkAvailability();
         try {
             $response = $this->validator
@@ -78,7 +79,7 @@ class Amazon extends AbstractProvider
                 ->setReceiptId($receiptId)
                 ->validate()
             ;
-        } catch (\Exception $e) {
+        } catch (\Exception | GuzzleException $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
 

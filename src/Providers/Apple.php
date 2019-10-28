@@ -45,6 +45,31 @@ class Apple extends AbstractProvider
     }
 
     /**
+     * @param mixed ...$config [string $receipt, bool $excludeOld]
+     * @return mixed|ResponseInterface
+     * @throws ConfigurationException
+     * @throws GuzzleException
+     * @throws RuntimeException
+     */
+    public function validate(...$config)
+    {
+        $receipt = $config[0] ?? null;
+        $excludeOld = $config[1] ?? false;
+        $this->checkAvailability();
+        try {
+            $response = $this->validator
+                ->setExcludeOldTransactions($excludeOld)
+                ->setReceiptData($receipt)
+                ->validate()
+            ;
+        } catch (\Exception $e) {
+            throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
+        }
+
+        return $response;
+    }
+
+    /**
      * @return string
      */
     public static function getName(): string
@@ -58,30 +83,6 @@ class Apple extends AbstractProvider
     public function isSandbox(): bool
     {
         return $this->sandbox;
-    }
-
-    /**
-     * @param string $receipt
-     * @param bool $excludeOld
-     * @return ResponseInterface
-     * @throws ConfigurationException
-     * @throws GuzzleException
-     * @throws RuntimeException
-     */
-    public function validate(string $receipt, bool $excludeOld = false): ResponseInterface
-    {
-        $this->checkAvailability();
-        try {
-            $response = $this->validator
-                ->setExcludeOldTransactions($excludeOld)
-                ->setReceiptData($receipt)
-                ->validate()
-            ;
-        } catch (\Exception $e) {
-            throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
-        }
-
-        return $response;
     }
 
     /**
