@@ -2,7 +2,10 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Composer\PaymentReceipt\GooglePaymentReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\GooglePlay\PurchaseResponse;
 use ReceiptValidator\GooglePlay\SubscriptionResponse;
 use ReceiptValidator\GooglePlay\Validator;
@@ -26,6 +29,10 @@ class Google extends AbstractProvider
     private $billingKey;
     /** @var array|null */
     private $paymentConfig;
+    /**
+     * @var bool|null
+     */
+    private $excludeOldTransactions;
 
     /**
      * Google constructor.
@@ -33,8 +40,8 @@ class Google extends AbstractProvider
      * @param string|null $packageName
      * @param string|null $billingKey
      * @param string|null $paymentConfig
+     * @param bool|null $excludeOldTransactions
      * @throws ConfigurationException
-     * @throws \Google_Exception
      */
     public function __construct(bool $enabled, ?string $packageName, ?string $billingKey, ?string $paymentConfig)
     {
@@ -56,38 +63,14 @@ class Google extends AbstractProvider
     }
 
     /**
-     * @param mixed ...$config [string $receipt, bool $modePurchase]
-     * @return mixed|PurchaseResponse|SubscriptionResponse
+     * @param array $config
+     * @return SubscriptionReceiptInterface
      * @throws RuntimeException
+     * @throws \Exception
      */
-    public function validate(...$config)
+    public function validateSubscription(... $config): SubscriptionReceiptInterface
     {
         $receipt = $config[0] ?? null;
-        $modePurchase = $config[1] ?? false;
-        $data = json_decode(base64_decode($receipt), true);
-        $productId = $data['productId'] ?? null;
-        $purchaseToken = $data['purchaseToken'] ?? null;
-        try {
-            $response = $this->validator
-                ->setProductId($productId)
-                ->setPurchaseToken($purchaseToken)
-                ->setValidationModePurchase($modePurchase)
-                ->validate()
-            ;
-        } catch (\Exception $e) {
-            throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param string $receipt
-     * @return SubscriptionResponse
-     * @throws RuntimeException
-     */
-    public function validateSubscription(string $receipt)
-    {
         $data = json_decode(base64_decode($receipt), true);
         $productId = $data['productId'] ?? null;
         $purchaseToken = $data['purchaseToken'] ?? null;
@@ -101,16 +84,17 @@ class Google extends AbstractProvider
             throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
         }
 
-        return $response;
+        return (new GooglePaymentReceiptComposer($response, $receipt))->composeSubscription();
     }
 
     /**
-     * @param string $receipt
-     * @return PurchaseResponse
+     * @param array $config
+     * @return PurchaseReceiptInterface
      * @throws RuntimeException
      */
-    public function validatePurchase(string $receipt)
+    public function validatePurchase(... $config): PurchaseReceiptInterface
     {
+        $receipt = $config[0] ?? null;
         $data = json_decode(base64_decode($receipt), true);
         $productId = $data['productId'] ?? null;
         $purchaseToken = $data['purchaseToken'] ?? null;
@@ -124,7 +108,7 @@ class Google extends AbstractProvider
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
 
-        return $response;
+        return (new GooglePaymentReceiptComposer($response, $receipt))->composePurchase();
     }
 
     /**

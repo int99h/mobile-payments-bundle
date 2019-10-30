@@ -16,10 +16,19 @@ interface ProviderInterface
     public function isEnabled();
 
     /**
+     * Validate a one-time purchase based payment
+     *
      * @param mixed ...$config
-     * @return mixed
+     * @return PurchaseReceiptInterface
      */
-    public function validate(...$config);
+    public function validatePurchase(...$config): PurchaseReceiptInterface;
+
+    /**
+     * Validate a subscription based payment
+     * @param mixed ...$config
+     * @return SubscriptionReceiptInterface
+     */
+    public function validateSubscription(...$config): SubscriptionReceiptInterface;
 
     /**
      * @return string

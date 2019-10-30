@@ -2,7 +2,12 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
+use AnyKey\MobilePaymentsBundle\Composer\PaymentReceipt\ApplePaymentReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Exception\FraudulentReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\InvalidReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\ResponseInterface;
 use ReceiptValidator\iTunes\Validator;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
@@ -46,13 +51,46 @@ class Apple extends AbstractProvider
     }
 
     /**
+     * Validate a one-time purchase based payment
+     *
+     * @param mixed ...$config
+     * @return PurchaseReceiptInterface
+     * @throws ConfigurationException
+     * @throws FraudulentReceiptException
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
+     * @throws RuntimeException
+     */
+    public function validatePurchase(...$config): PurchaseReceiptInterface
+    {
+        return (new ApplePaymentReceiptComposer($this->validate($config)))->composePurchase();
+    }
+
+    /**
+     * Validate a subscription based payment
+     * @param mixed ...$config
+     * @return SubscriptionReceiptInterface
+     * @throws ConfigurationException
+     * @throws FraudulentReceiptException
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
+     * @throws RuntimeException
+     */
+    public function validateSubscription(...$config): SubscriptionReceiptInterface
+    {
+        return (new ApplePaymentReceiptComposer($this->validate($config)))->composeSubscription();
+    }
+
+    /**
      * @param mixed ...$config [string $receipt, bool $excludeOld]
      * @return mixed|ResponseInterface
      * @throws ConfigurationException
      * @throws GuzzleException
      * @throws RuntimeException
+     * @throws InvalidReceiptException
+     * @throws FraudulentReceiptException
      */
-    public function validate(...$config)
+    private function validate(...$config): ResponseInterface
     {
         $receipt = $config[0] ?? null;
         $excludeOld = $config[1] ?? false;
@@ -65,6 +103,14 @@ class Apple extends AbstractProvider
             ;
         } catch (\Exception $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
+        }
+
+        if (!$response->isValid()) {
+            throw new InvalidReceiptException();
+        }
+
+        if (!$response->getLatestReceiptInfo()) {
+            throw new FraudulentReceiptException('Fraudulent Apple Receipt.');
         }
 
         return $response;
