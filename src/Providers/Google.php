@@ -6,8 +6,6 @@ use AnyKey\MobilePaymentsBundle\Composer\PaymentReceipt\GooglePaymentReceiptComp
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use ReceiptValidator\GooglePlay\PurchaseResponse;
-use ReceiptValidator\GooglePlay\SubscriptionResponse;
 use ReceiptValidator\GooglePlay\Validator;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
@@ -29,10 +27,6 @@ class Google extends AbstractProvider
     private $billingKey;
     /** @var array|null */
     private $paymentConfig;
-    /**
-     * @var bool|null
-     */
-    private $excludeOldTransactions;
 
     /**
      * Google constructor.
@@ -40,7 +34,6 @@ class Google extends AbstractProvider
      * @param string|null $packageName
      * @param string|null $billingKey
      * @param string|null $paymentConfig
-     * @param bool|null $excludeOldTransactions
      * @throws ConfigurationException
      */
     public function __construct(bool $enabled, ?string $packageName, ?string $billingKey, ?string $paymentConfig)
