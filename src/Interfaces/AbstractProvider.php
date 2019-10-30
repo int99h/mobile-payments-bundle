@@ -15,7 +15,10 @@ abstract class AbstractProvider implements ProviderInterface
 
     /** @var bool */
     protected $enabled;
-    private $validator;
+    /**
+     * @var PurchaseReceiptInterface|null
+     */
+    protected $validator;
 
     abstract protected function initValidator(): void;
 
