@@ -2,7 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
-use AnyKey\MobilePaymentsBundle\Composer\PaymentReceipt\GooglePaymentReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Data\Composer\GoogleReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
@@ -57,31 +57,6 @@ class Google extends AbstractProvider
 
     /**
      * @param array $config
-     * @return SubscriptionReceiptInterface
-     * @throws RuntimeException
-     * @throws \Exception
-     */
-    public function validateSubscription(... $config): SubscriptionReceiptInterface
-    {
-        $receipt = $config[0] ?? null;
-        $data = json_decode(base64_decode($receipt), true);
-        $productId = $data['productId'] ?? null;
-        $purchaseToken = $data['purchaseToken'] ?? null;
-        try {
-            $response = $this->validator
-                ->setProductId($productId)
-                ->setPurchaseToken($purchaseToken)
-                ->validateSubscription()
-            ;
-        } catch (\Exception $e) {
-            throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
-        }
-
-        return (new GooglePaymentReceiptComposer($response, $receipt))->composeSubscription();
-    }
-
-    /**
-     * @param array $config
      * @return PurchaseReceiptInterface
      * @throws RuntimeException
      */
@@ -100,8 +75,34 @@ class Google extends AbstractProvider
         } catch (\Exception $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
+        $purchase = (new GoogleReceiptComposer($response, $receipt))->purchase();
 
-        return (new GooglePaymentReceiptComposer($response, $receipt))->composePurchase();
+        return $purchase;
+    }
+
+    /**
+     * @param mixed ...$config
+     * @return SubscriptionReceiptInterface
+     * @throws RuntimeException
+     */
+    public function validateSubscription(... $config): SubscriptionReceiptInterface
+    {
+        $receipt = $config[0] ?? null;
+        $data = json_decode(base64_decode($receipt), true);
+        $productId = $data['productId'] ?? null;
+        $purchaseToken = $data['purchaseToken'] ?? null;
+        try {
+            $response = $this->validator
+                ->setProductId($productId)
+                ->setPurchaseToken($purchaseToken)
+                ->validateSubscription()
+            ;
+        } catch (\Exception $e) {
+            throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
+        }
+        $subscription = (new GoogleReceiptComposer($response, $receipt))->subscription();
+
+        return $subscription;
     }
 
     /**

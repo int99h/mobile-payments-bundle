@@ -3,41 +3,28 @@
 
 namespace AnyKey\MobilePaymentsBundle\Model;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 
-use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-
-final class SubscriptionReceipt implements SubscriptionReceiptInterface
+/**
+ * Class PurchaseReceipt
+ * @package AnyKey\MobilePaymentsBundle\Data
+ */
+class PurchaseReceipt implements PurchaseReceiptInterface
 {
     /** @var string|null */
     private $productId = null;
-    /** @var \DateTime|null */
-    private $expiryDate = null;
     /** @var string|null */
     private $refreshPayload = null;
-    /** @var bool|null */
-    private $renewing = null;
     /** @var string|null */
     private $transactionId = null;
     /** @var string|null */
     private $orderId = null;
-    /** @var null|bool */
-    private $trial = null;
     /** @var bool */
     private $sandbox;
     /** @var string|null */
     private $rawResponse = null;
     /** @var mixed|null */
     private $originalResponse = null;
-
-    /**
-     * Get expiry date of the payment
-     *
-     * @return \DateTime
-     */
-    public function getExpiryDate(): \DateTime
-    {
-        return $this->expiryDate;
-    }
 
     /**
      * Get product ID of the payment
@@ -70,16 +57,6 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
     }
 
     /**
-     * Is payment renewing
-     *
-     * @return bool
-     */
-    public function isRenewing(): bool
-    {
-        return $this->renewing;
-    }
-
-    /**
      * Get refresh payload of the payment
      *
      * @return string
@@ -87,16 +64,6 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
     public function getRefreshPayload(): string
     {
         return $this->refreshPayload;
-    }
-
-    /**
-     * Is payment receipt trial
-     *
-     * @return bool
-     */
-    public function isTrial(): bool
-    {
-        return $this->trial;
     }
 
     /**
@@ -131,9 +98,9 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param string|null $productId
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setProductId(?string $productId): SubscriptionReceipt
+    public function setProductId(?string $productId): self
     {
         $this->productId = $productId;
         return $this;
@@ -141,9 +108,9 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param string|null $refreshPayload
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setRefreshPayload(?string $refreshPayload): SubscriptionReceipt
+    public function setRefreshPayload(?string $refreshPayload): self
     {
         $this->refreshPayload = $refreshPayload;
         return $this;
@@ -151,9 +118,9 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param string|null $transactionId
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setTransactionId(?string $transactionId): SubscriptionReceipt
+    public function setTransactionId(?string $transactionId): self
     {
         $this->transactionId = $transactionId;
         return $this;
@@ -161,29 +128,19 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param string|null $orderId
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setOrderId(?string $orderId): SubscriptionReceipt
+    public function setOrderId(?string $orderId): self
     {
         $this->orderId = $orderId;
         return $this;
     }
 
     /**
-     * @param bool|null $trial
-     * @return SubscriptionReceipt
-     */
-    public function setTrial(?bool $trial): SubscriptionReceipt
-    {
-        $this->trial = $trial;
-        return $this;
-    }
-
-    /**
      * @param bool $sandbox
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setSandbox(bool $sandbox): SubscriptionReceipt
+    public function setSandbox(bool $sandbox): self
     {
         $this->sandbox = $sandbox;
         return $this;
@@ -191,9 +148,9 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param string|null $rawResponse
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setRawResponse(?string $rawResponse): SubscriptionReceipt
+    public function setRawResponse(?string $rawResponse): self
     {
         $this->rawResponse = $rawResponse;
         return $this;
@@ -201,31 +158,11 @@ final class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * @param mixed|null $originalResponse
-     * @return SubscriptionReceipt
+     * @return PurchaseReceipt
      */
-    public function setOriginalResponse(?$originalResponse): SubscriptionReceipt
+    public function setOriginalResponse(?$originalResponse): self
     {
         $this->originalResponse = $originalResponse;
-        return $this;
-    }
-
-    /**
-     * @param bool|null $renewing
-     * @return SubscriptionReceipt
-     */
-    public function setRenewing(?bool $renewing): SubscriptionReceipt
-    {
-        $this->renewing = $renewing;
-        return $this;
-    }
-
-    /**
-     * @param \DateTime|null $expiryDate
-     * @return SubscriptionReceipt
-     */
-    public function setExpiryDate(?\DateTime $expiryDate): SubscriptionReceipt
-    {
-        $this->expiryDate = $expiryDate;
         return $this;
     }
 }
