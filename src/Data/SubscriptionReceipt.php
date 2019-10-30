@@ -1,21 +1,29 @@
 <?php
 
-
 namespace AnyKey\MobilePaymentsBundle\Model;
 
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 
-use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
-
-final class PurchaseReceipt implements PurchaseReceiptInterface
+/**
+ * Class SubscriptionReceipt
+ * @package AnyKey\MobilePaymentsBundle\Data
+ */
+class SubscriptionReceipt implements SubscriptionReceiptInterface
 {
     /** @var string|null */
     private $productId = null;
+    /** @var \DateTime|null */
+    private $expiryDate = null;
     /** @var string|null */
     private $refreshPayload = null;
+    /** @var bool|null */
+    private $renewing = null;
     /** @var string|null */
     private $transactionId = null;
     /** @var string|null */
     private $orderId = null;
+    /** @var null|bool */
+    private $trial = null;
     /** @var bool */
     private $sandbox;
     /** @var string|null */
@@ -24,8 +32,16 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
     private $originalResponse = null;
 
     /**
+     * Get expiry date of the payment
+     * @return \DateTime
+     */
+    public function getExpiryDate(): \DateTime
+    {
+        return $this->expiryDate;
+    }
+
+    /**
      * Get product ID of the payment
-     *
      * @return string
      */
     public function getProductId(): string
@@ -35,7 +51,6 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
 
     /**
      * Get transaction ID of the payment
-     *
      * @return string
      */
     public function getTransactionId(): string
@@ -45,7 +60,6 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
 
     /**
      * Get order ID of the payment
-     *
      * @return string
      */
     public function getOrderId(): string
@@ -54,8 +68,16 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
     }
 
     /**
+     * Is payment renewing
+     * @return bool
+     */
+    public function isRenewing(): bool
+    {
+        return $this->renewing;
+    }
+
+    /**
      * Get refresh payload of the payment
-     *
      * @return string
      */
     public function getRefreshPayload(): string
@@ -64,8 +86,16 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
     }
 
     /**
+     * Is payment receipt trial
+     * @return bool
+     */
+    public function isTrial(): bool
+    {
+        return $this->trial;
+    }
+
+    /**
      * Is payment receipt in sandbox mode (test payment)
-     *
      * @return bool
      */
     public function isSandbox(): bool
@@ -75,7 +105,6 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
 
     /**
      * Return original response after processing the receipt by a payment store
-     *
      * @return string
      */
     public function getRawResponse(): ?string
@@ -85,7 +114,6 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
 
     /**
      * Returns an original response object of a payment provider
-     *
      * @return mixed
      */
     public function getOriginalResponse()
@@ -95,71 +123,111 @@ final class PurchaseReceipt implements PurchaseReceiptInterface
 
     /**
      * @param string|null $productId
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setProductId(?string $productId): PurchaseReceipt
+    public function setProductId(?string $productId): self
     {
         $this->productId = $productId;
+
         return $this;
     }
 
     /**
      * @param string|null $refreshPayload
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setRefreshPayload(?string $refreshPayload): PurchaseReceipt
+    public function setRefreshPayload(?string $refreshPayload): self
     {
         $this->refreshPayload = $refreshPayload;
+
         return $this;
     }
 
     /**
      * @param string|null $transactionId
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setTransactionId(?string $transactionId): PurchaseReceipt
+    public function setTransactionId(?string $transactionId): self
     {
         $this->transactionId = $transactionId;
+
         return $this;
     }
 
     /**
      * @param string|null $orderId
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setOrderId(?string $orderId): PurchaseReceipt
+    public function setOrderId(?string $orderId): self
     {
         $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    /**
+     * @param bool|null $trial
+     * @return SubscriptionReceipt
+     */
+    public function setTrial(?bool $trial): self
+    {
+        $this->trial = $trial;
+
         return $this;
     }
 
     /**
      * @param bool $sandbox
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setSandbox(bool $sandbox): PurchaseReceipt
+    public function setSandbox(bool $sandbox): self
     {
         $this->sandbox = $sandbox;
+
         return $this;
     }
 
     /**
      * @param string|null $rawResponse
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setRawResponse(?string $rawResponse): PurchaseReceipt
+    public function setRawResponse(?string $rawResponse): self
     {
         $this->rawResponse = $rawResponse;
+
         return $this;
     }
 
     /**
      * @param mixed|null $originalResponse
-     * @return PurchaseReceipt
+     * @return SubscriptionReceipt
      */
-    public function setOriginalResponse(?$originalResponse): PurchaseReceipt
+    public function setOriginalResponse(?$originalResponse): self
     {
         $this->originalResponse = $originalResponse;
+
+        return $this;
+    }
+
+    /**
+     * @param bool|null $renewing
+     * @return SubscriptionReceipt
+     */
+    public function setRenewing(?bool $renewing): self
+    {
+        $this->renewing = $renewing;
+
+        return $this;
+    }
+
+    /**
+     * @param \DateTime|null $expiryDate
+     * @return SubscriptionReceipt
+     */
+    public function setExpiryDate(?\DateTime $expiryDate): self
+    {
+        $this->expiryDate = $expiryDate;
+
         return $this;
     }
 }

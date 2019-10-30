@@ -2,9 +2,11 @@
 
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
-use AnyKey\MobilePaymentsBundle\Composer\PaymentReceipt\ApplePaymentReceiptComposer;
-use AnyKey\MobilePaymentsBundle\Exception\FraudulentReceiptException;
-use AnyKey\MobilePaymentsBundle\Exception\InvalidReceiptException;
+use AnyKey\MobilePaymentsBundle\Data\Composer\AppleReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Exception\GeneralException;
+use AnyKey\MobilePaymentsBundle\Exception\Receipt\FraudException;
+use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
@@ -52,33 +54,36 @@ class Apple extends AbstractProvider
 
     /**
      * Validate a one-time purchase based payment
-     *
      * @param mixed ...$config
      * @return PurchaseReceiptInterface
-     * @throws ConfigurationException
-     * @throws FraudulentReceiptException
-     * @throws GuzzleException
-     * @throws InvalidReceiptException
-     * @throws RuntimeException
+     * @throws ReceiptException
      */
     public function validatePurchase(...$config): PurchaseReceiptInterface
     {
-        return (new ApplePaymentReceiptComposer($this->validate($config)))->composePurchase();
+        try {
+            $purchase = (new AppleReceiptComposer($this->validate($config)))->purchase();
+        } catch (GuzzleException| GeneralException $e) {
+            throw new ReceiptException($e->getMessage());
+        }
+
+        return $purchase;
     }
 
     /**
      * Validate a subscription based payment
      * @param mixed ...$config
      * @return SubscriptionReceiptInterface
-     * @throws ConfigurationException
-     * @throws FraudulentReceiptException
-     * @throws GuzzleException
-     * @throws InvalidReceiptException
-     * @throws RuntimeException
+     * @throws ReceiptException
      */
     public function validateSubscription(...$config): SubscriptionReceiptInterface
     {
-        return (new ApplePaymentReceiptComposer($this->validate($config)))->composeSubscription();
+        try {
+            $subscription = (new AppleReceiptComposer($this->validate($config)))->subscription();
+        } catch (GuzzleException| GeneralException $e) {
+            throw new ReceiptException($e->getMessage());
+        }
+
+        return $subscription;
     }
 
     /**
@@ -88,7 +93,7 @@ class Apple extends AbstractProvider
      * @throws GuzzleException
      * @throws RuntimeException
      * @throws InvalidReceiptException
-     * @throws FraudulentReceiptException
+     * @throws FraudException
      */
     private function validate(...$config): ResponseInterface
     {
@@ -104,13 +109,11 @@ class Apple extends AbstractProvider
         } catch (\Exception $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
-
         if (!$response->isValid()) {
             throw new InvalidReceiptException();
         }
-
         if (!$response->getLatestReceiptInfo()) {
-            throw new FraudulentReceiptException('Fraudulent Apple Receipt.');
+            throw new FraudException('Fraudulent Apple Receipt.');
         }
 
         return $response;
