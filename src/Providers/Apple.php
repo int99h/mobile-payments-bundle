@@ -62,7 +62,7 @@ class Apple extends AbstractProvider
     {
         try {
             $purchase = (new AppleReceiptComposer($this->validate($config)))->purchase();
-        } catch (GuzzleException| GeneralException $e) {
+        } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
 
@@ -79,7 +79,7 @@ class Apple extends AbstractProvider
     {
         try {
             $subscription = (new AppleReceiptComposer($this->validate($config)))->subscription();
-        } catch (GuzzleException| GeneralException $e) {
+        } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
 
@@ -120,14 +120,6 @@ class Apple extends AbstractProvider
     }
 
     /**
-     * @return string
-     */
-    public static function getName(): string
-    {
-        return self::NAME;
-    }
-
-    /**
      * @return bool
      */
     public function isSandbox(): bool
@@ -144,5 +136,13 @@ class Apple extends AbstractProvider
             throw new ConfigurationException($this, 'payment_key not defined');
         }
         $this->validator = (new Validator($this->endpoint))->setSharedSecret($this->paymentKey);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getName(): string
+    {
+        return self::NAME;
     }
 }

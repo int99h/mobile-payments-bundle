@@ -20,7 +20,6 @@ class Google extends AbstractProvider
 
     /** @var Validator */
     protected $validator;
-
     /** @var string */
     private $packageName;
     /** @var string|null */
@@ -48,14 +47,6 @@ class Google extends AbstractProvider
     }
 
     /**
-     * @return string
-     */
-    public static function getName(): string
-    {
-        return self::NAME;
-    }
-
-    /**
      * @param array $config
      * @return PurchaseReceiptInterface
      * @throws RuntimeException
@@ -75,6 +66,7 @@ class Google extends AbstractProvider
         } catch (\Exception $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
+
         $purchase = (new GoogleReceiptComposer($response, $receipt))->purchase();
 
         return $purchase;
@@ -100,6 +92,7 @@ class Google extends AbstractProvider
         } catch (\Exception $e) {
             throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
         }
+
         $subscription = (new GoogleReceiptComposer($response, $receipt))->subscription();
 
         return $subscription;
@@ -130,5 +123,13 @@ class Google extends AbstractProvider
         } catch (\Google_Exception $e) {
             throw new ConfigurationException($this, 'Google Client Error', null, $e);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public static function getName(): string
+    {
+        return self::NAME;
     }
 }

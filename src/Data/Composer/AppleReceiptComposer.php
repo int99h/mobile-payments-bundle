@@ -60,6 +60,7 @@ class AppleReceiptComposer implements ReceiptComposerInterface
         if (!$latestReceipt) {
             throw new RuntimeException('Cannot retrieve the latest receipt.');
         }
+
         $data = $this->getSubscriptionData($latestReceipt->getProductId());
         $subscription = (new SubscriptionReceipt())
             ->setExpiryDate($latestReceipt->getExpiresDate()->toDateTime())

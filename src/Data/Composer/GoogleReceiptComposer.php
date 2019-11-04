@@ -25,7 +25,7 @@ class GoogleReceiptComposer implements ReceiptComposerInterface
     const PURCHASE_TYPE_PROMO = 1;
     const PURCHASE_TYPE_REWARDED = 2;
 
-    /** @var SubscriptionResponse */
+    /** @var AbstractResponse */
     private $response;
     /** @var array */
     private $data;
