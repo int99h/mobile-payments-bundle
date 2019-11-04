@@ -50,6 +50,7 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
     /**
      * Compose a purchase receipt that fits providers' validation criteria
      * @return SubscriptionReceiptInterface
+     * @throws \Exception
      */
     public function subscription(): SubscriptionReceiptInterface
     {
@@ -64,6 +65,17 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
             $expiryDate = $latestReceipt->getCancellationDate()->toDateTime();
         }
 
+        if (!$this->receiptData->getSubscriptionTrialTimestamp()) {
+            $isTrial = false;
+        } else {
+            $trialEndDate = $latestReceipt->getPurchaseDate()->getTimestamp() +
+                $this->receiptData->getSubscriptionTrialTimestamp();
+            $subscriptionTrialEndDate = (new \DateTime())->setTimestamp($trialEndDate);
+
+            // if subscription + trial dates end later than current date, then it's trial
+            $isTrial = $subscriptionTrialEndDate > (new \DateTime())->getTimestamp();
+        }
+
         $receipt = (new SubscriptionReceipt())
             ->setProductId($latestReceipt->getProductId())
             ->setTransactionId("{$latestReceipt->getTransactionId()}_{$payTime}")
@@ -74,7 +86,7 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
             ->setOriginalResponse($this->response)
             ->setExpiryDate($expiryDate)
             ->setRenewing($isRenewing)
-            ->setTrial(false)
+            ->setTrial($isTrial)
         ;
 
         return $receipt;

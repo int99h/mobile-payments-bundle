@@ -13,10 +13,19 @@ class AmazonReceiptData implements ReceiptDataInterface
     /** @var array */
     private $options = [];
 
-    public function __construct(string $receiptId, string $userId)
+    public function __construct(string $receiptId, string $userId, int $subscriptionTrialTimestamp = null)
     {
         $this->receiptId = $receiptId;
         $this->options['user_id'] = $userId;
+        $this->options['subscription_trial_timestamp'] = $subscriptionTrialTimestamp;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSubscriptionTrialTimestamp(): ?int
+    {
+        return $this->options['subscription_trial_timestamp'];
     }
 
     /**
