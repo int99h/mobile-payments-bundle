@@ -4,6 +4,7 @@ namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Model\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Model\SubscriptionReceipt;
@@ -35,13 +36,13 @@ class GoogleReceiptComposer implements ReceiptComposerInterface
     /**
      * GoogleReceiptComposer constructor.
      * @param AbstractResponse $response
-     * @param string $receipt
+     * @param ReceiptDataInterface $receiptData
      */
-    public function __construct(AbstractResponse $response, string $receipt)
+    public function __construct(AbstractResponse $response, ReceiptDataInterface $receiptData)
     {
         $this->response = $response;
-        $this->receipt = $receipt;
-        $this->data = \GuzzleHttp\json_decode(base64_decode($receipt), true);
+        $this->receipt = $receiptData->getReceipt();
+        $this->data = \GuzzleHttp\json_decode(base64_decode($this->receipt), true);
     }
 
     /**

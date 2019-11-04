@@ -6,6 +6,10 @@ namespace AnyKey\MobilePaymentsBundle\Data\Receipt;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 
+/**
+ * Class AppleReceiptData
+ * @package AnyKey\MobilePaymentsBundle\Data\Receipt
+ */
 class AppleReceiptData implements ReceiptDataInterface
 {
     /** @var string */
@@ -13,15 +17,10 @@ class AppleReceiptData implements ReceiptDataInterface
     /** @var array */
     private $options = [];
 
-    public function __construct(string $receipt)
+    public function __construct(string $receipt, bool $excludeOld = false)
     {
         $this->receipt = $receipt;
-        $this->options['exclude_old'] = false;
-    }
-
-    public function setExcludeOld(bool $excludeOld)
-    {
-        return $this->options['exclude_old'] = $excludeOld;
+        $this->options['exclude_old'] = $excludeOld;
     }
 
     /**
@@ -40,5 +39,10 @@ class AppleReceiptData implements ReceiptDataInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    public function isExcludeOld(): bool
+    {
+        return $this->options['exclude_old'];
     }
 }

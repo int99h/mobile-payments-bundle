@@ -3,6 +3,7 @@
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Data\Composer\AppleReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Data\Receipt\AppleReceiptData;
 use AnyKey\MobilePaymentsBundle\Exception\GeneralException;
 use AnyKey\MobilePaymentsBundle\Exception\Receipt\FraudException;
 use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
@@ -98,10 +99,14 @@ class Apple extends AbstractProvider
      */
     private function validate(ReceiptDataInterface $receiptData): ResponseInterface
     {
+        if (!$receiptData instanceof AppleReceiptData) {
+            throw new RuntimeException('Use AppleReceiptData to validate the receipt.');
+        }
+
         $this->checkAvailability();
         try {
             $response = $this->validator
-                ->setExcludeOldTransactions($receiptData->getOptions()['exclude_old'])
+                ->setExcludeOldTransactions($receiptData->isExcludeOld())
                 ->setReceiptData($receiptData->getReceipt())
                 ->validate()
             ;

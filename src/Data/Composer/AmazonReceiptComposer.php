@@ -4,6 +4,8 @@
 namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
 
+use AnyKey\MobilePaymentsBundle\Data\Receipt\AmazonReceiptData;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
@@ -23,7 +25,7 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
      */
     private $isSandbox;
     /**
-     * @var ReceiptDataInterface
+     * @var AmazonReceiptData
      */
     private $receiptData;
 
@@ -32,11 +34,16 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
      * @param Response $response
      * @param ReceiptDataInterface $receiptData
      * @param bool $isSandbox
+     * @throws RuntimeException
      */
     public function __construct(Response $response, ReceiptDataInterface $receiptData, bool $isSandbox)
     {
         $this->response = $response;
         $this->isSandbox = $isSandbox;
+
+        if (!$receiptData instanceof AmazonReceiptData) {
+            throw new RuntimeException('Use AmazonReceiptData to validate the receipt.');
+        }
         $this->receiptData = $receiptData;
     }
 
@@ -108,7 +115,7 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
     private function getRefreshPayload(): string
     {
         return base64_encode(json_encode([
-            'user_id' => $this->receiptData->getOptions()['user_id'],
+            'user_id' => $this->receiptData->getUserId(),
             'receipt_id' => $this->receiptData->getReceipt()
         ]));
     }

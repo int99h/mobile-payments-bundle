@@ -3,6 +3,7 @@
 namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Data\Composer\AmazonReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Data\Receipt\AmazonReceiptData;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
@@ -103,10 +104,14 @@ class Amazon extends AbstractProvider
      */
     private function validate(ReceiptDataInterface $receiptData)
     {
+        if (!$receiptData instanceof AmazonReceiptData) {
+            throw new RuntimeException('Use AmazonReceiptData to validate the receipt.');
+        }
+
         $this->checkAvailability();
         try {
             $response = $this->validator
-                ->setUserId($receiptData->getOptions()['user_id'])
+                ->setUserId($receiptData->getUserId())
                 ->setReceiptId($receiptData->getReceipt())
                 ->validate()
             ;

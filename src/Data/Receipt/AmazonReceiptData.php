@@ -13,18 +13,18 @@ class AmazonReceiptData implements ReceiptDataInterface
     /** @var array */
     private $options = [];
 
-    public function __construct(string $receiptId)
+    public function __construct(string $receiptId, string $userId)
     {
         $this->receiptId = $receiptId;
-        $this->options['user_id'] = null;
+        $this->options['user_id'] = $userId;
     }
 
     /**
-     * @param string $userId
+     * @return string
      */
-    public function setUserId(string $userId)
+    public function getUserId(): string
     {
-        $this->options['user_id'] = $userId;
+        return $this->options['user_id'];
     }
 
     /**
