@@ -18,17 +18,17 @@ interface ProviderInterface
     /**
      * Validate a one-time purchase based payment
      *
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      */
-    public function validatePurchase(...$config): PurchaseReceiptInterface;
+    public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface;
 
     /**
      * Validate a subscription based payment
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      */
-    public function validateSubscription(...$config): SubscriptionReceiptInterface;
+    public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface;
 
     /**
      * @return string

@@ -9,6 +9,7 @@ use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
 use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\ResponseInterface;
 use ReceiptValidator\iTunes\Validator;
@@ -54,14 +55,14 @@ class Apple extends AbstractProvider
 
     /**
      * Validate a one-time purchase based payment
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      * @throws ReceiptException
      */
-    public function validatePurchase(...$config): PurchaseReceiptInterface
+    public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
         try {
-            $purchase = (new AppleReceiptComposer($this->validate($config)))->purchase();
+            $purchase = (new AppleReceiptComposer($this->validate($receiptData)))->purchase();
         } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
@@ -71,14 +72,14 @@ class Apple extends AbstractProvider
 
     /**
      * Validate a subscription based payment
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      * @throws ReceiptException
      */
-    public function validateSubscription(...$config): SubscriptionReceiptInterface
+    public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
         try {
-            $subscription = (new AppleReceiptComposer($this->validate($config)))->subscription();
+            $subscription = (new AppleReceiptComposer($this->validate($receiptData)))->subscription();
         } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
@@ -87,23 +88,21 @@ class Apple extends AbstractProvider
     }
 
     /**
-     * @param mixed ...$config [string $receipt, bool $excludeOld]
+     * @param ReceiptDataInterface $receiptData
      * @return mixed|ResponseInterface
      * @throws ConfigurationException
-     * @throws GuzzleException
-     * @throws RuntimeException
-     * @throws InvalidReceiptException
      * @throws FraudException
+     * @throws GuzzleException
+     * @throws InvalidReceiptException
+     * @throws RuntimeException
      */
-    private function validate(...$config): ResponseInterface
+    private function validate(ReceiptDataInterface $receiptData): ResponseInterface
     {
-        $receipt = $config[0] ?? null;
-        $excludeOld = $config[1] ?? false;
         $this->checkAvailability();
         try {
             $response = $this->validator
-                ->setExcludeOldTransactions($excludeOld)
-                ->setReceiptData($receipt)
+                ->setExcludeOldTransactions($receiptData->getOptions()['exclude_old'])
+                ->setReceiptData($receiptData->getReceipt())
                 ->validate()
             ;
         } catch (\Exception $e) {

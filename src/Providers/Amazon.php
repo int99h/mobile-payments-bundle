@@ -5,6 +5,7 @@ namespace AnyKey\MobilePaymentsBundle\Providers;
 use AnyKey\MobilePaymentsBundle\Data\Composer\AmazonReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use ReceiptValidator\Amazon\Validator;
@@ -60,20 +61,16 @@ class Amazon extends AbstractProvider
     /**
      * Validate a one-time purchase based payment
      *
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      * @throws ConfigurationException
      * @throws RuntimeException
      */
-    public function validatePurchase(...$config): PurchaseReceiptInterface
+    public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
-        $userId = $config[0] ?? null;
-        $receiptId = $config[1] ?? null;
-
         $purchase = (new AmazonReceiptComposer(
-            $this->validate($userId, $receiptId),
-            $userId,
-            $receiptId,
+            $this->validate($receiptData),
+            $receiptData,
             $this->isSandbox()
         ))->purchase();
 
@@ -82,20 +79,16 @@ class Amazon extends AbstractProvider
 
     /**
      * Validate a subscription based payment
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      * @throws ConfigurationException
      * @throws RuntimeException
      */
-    public function validateSubscription(...$config): SubscriptionReceiptInterface
+    public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
-        $userId = $config[0] ?? null;
-        $receiptId = $config[1] ?? null;
-
         $subscription = (new AmazonReceiptComposer(
-            $this->validate($userId, $receiptId),
-            $userId,
-            $receiptId,
+            $this->validate($receiptData),
+            $receiptData,
             $this->isSandbox()
         ))->subscription();
 
@@ -103,20 +96,18 @@ class Amazon extends AbstractProvider
     }
 
     /**
-     * @param mixed ...$config [string $userId, string $receiptId]
+     * @param ReceiptDataInterface $receiptData
      * @return Response
      * @throws ConfigurationException
      * @throws RuntimeException
      */
-    private function validate(...$config)
+    private function validate(ReceiptDataInterface $receiptData)
     {
-        $userId = $config[0] ?? null;
-        $receiptId = $config[1] ?? null;
         $this->checkAvailability();
         try {
             $response = $this->validator
-                ->setUserId($userId)
-                ->setReceiptId($receiptId)
+                ->setUserId($receiptData->getOptions()['user_id'])
+                ->setReceiptId($receiptData->getReceipt())
                 ->validate()
             ;
         } catch (\Exception | GuzzleException $e) {

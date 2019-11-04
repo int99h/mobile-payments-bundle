@@ -6,6 +6,7 @@ use AnyKey\MobilePaymentsBundle\Data\Composer\WindowsReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -45,52 +46,49 @@ class Windows extends AbstractProvider
     /**
      * Validate a one-time purchase based payment
      *
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      * @throws InvalidReceiptException
      * @throws RuntimeException
      */
-    public function validatePurchase(...$config): PurchaseReceiptInterface
+    public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
-        $receipt = $config[0] ?? null;
-        if (!$this->validate($receipt)) {
+        if (!$this->validate($receiptData)) {
             throw new InvalidReceiptException('Invalid Windows purchase receipt.');
         }
 
-        $purchase = (new WindowsReceiptComposer($receipt))->purchase();
+        $purchase = (new WindowsReceiptComposer($receiptData))->purchase();
 
         return $purchase;
     }
 
     /**
      * Validate a subscription based payment
-     * @param mixed ...$config
+     * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      * @throws InvalidReceiptException
      * @throws RuntimeException
      */
-    public function validateSubscription(...$config): SubscriptionReceiptInterface
+    public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
-        $receipt = $config[0] ?? null;
-        if (!$this->validate($receipt)) {
+        if (!$this->validate($receiptData)) {
             throw new InvalidReceiptException('Invalid Windows subscription receipt.');
         }
 
-        $purchase = (new WindowsReceiptComposer($receipt))->subscription();
+        $subscription = (new WindowsReceiptComposer($receiptData))->subscription();
 
-        return $purchase;
+        return $subscription;
     }
 
     /**
-     * @param mixed ...$config [string $receipt]
+     * @param ReceiptDataInterface $receiptData
      * @return bool|mixed
      * @throws RuntimeException
      */
-    private function validate(...$config)
+    private function validate(ReceiptDataInterface $receiptData)
     {
-        $receipt = $config[0] ?? null;
         try {
-            $response = $this->validator->validate($receipt);
+            $response = $this->validator->validate($receiptData->getReceipt());
         } catch (\Exception $e) {
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }

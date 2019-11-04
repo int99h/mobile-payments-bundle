@@ -6,6 +6,7 @@ namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Model\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Model\SubscriptionReceipt;
@@ -18,31 +19,25 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
      */
     private $response;
     /**
-     * @var string
-     */
-    private $userId;
-    /**
-     * @var string
-     */
-    private $receiptId;
-    /**
      * @var bool
      */
     private $isSandbox;
+    /**
+     * @var ReceiptDataInterface
+     */
+    private $receiptData;
 
     /**
      * AmazonReceiptComposer constructor.
      * @param Response $response
-     * @param string $userId
-     * @param string $receiptId
+     * @param ReceiptDataInterface $receiptData
      * @param bool $isSandbox
      */
-    public function __construct(Response $response, string $userId, string $receiptId, bool $isSandbox)
+    public function __construct(Response $response, ReceiptDataInterface $receiptData, bool $isSandbox)
     {
         $this->response = $response;
-        $this->userId = $userId;
-        $this->receiptId = $receiptId;
         $this->isSandbox = $isSandbox;
+        $this->receiptData = $receiptData;
     }
 
     /**
@@ -112,6 +107,9 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
      */
     private function getRefreshPayload(): string
     {
-        return base64_encode(json_encode(['user_id' => $this->userId, 'receipt_id' => $this->receiptId]));
+        return base64_encode(json_encode([
+            'user_id' => $this->receiptData->getOptions()['user_id'],
+            'receipt_id' => $this->receiptData->getReceipt()
+        ]));
     }
 }

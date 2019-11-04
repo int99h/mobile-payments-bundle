@@ -5,6 +5,7 @@ namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Model\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Model\SubscriptionReceipt;
@@ -12,17 +13,17 @@ use AnyKey\MobilePaymentsBundle\Model\SubscriptionReceipt;
 class WindowsReceiptComposer implements ReceiptComposerInterface
 {
     /**
-     * @var array
+     * @var ReceiptDataInterface
      */
-    private $receipt;
+    private $receiptData;
 
     /**
      * WindowsReceiptComposer constructor.
-     * @param array $receipt
+     * @param ReceiptDataInterface $receiptData
      */
-    public function __construct(array $receipt)
+    public function __construct(ReceiptDataInterface $receiptData)
     {
-        $this->receipt = $receipt;
+        $this->receiptData = $receiptData;
     }
 
     /**
