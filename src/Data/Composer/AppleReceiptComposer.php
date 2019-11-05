@@ -6,8 +6,8 @@ use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Model\PurchaseReceipt;
-use AnyKey\MobilePaymentsBundle\Model\SubscriptionReceipt;
+use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
+use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\ResponseInterface;
 

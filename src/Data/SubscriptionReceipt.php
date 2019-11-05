@@ -1,6 +1,6 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Model;
+namespace AnyKey\MobilePaymentsBundle\Data;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 
