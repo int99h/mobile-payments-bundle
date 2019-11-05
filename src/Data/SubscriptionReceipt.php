@@ -202,7 +202,7 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
      * @param mixed|null $originalResponse
      * @return SubscriptionReceipt
      */
-    public function setOriginalResponse(?$originalResponse): self
+    public function setOriginalResponse($originalResponse = null): self
     {
         $this->originalResponse = $originalResponse;
 

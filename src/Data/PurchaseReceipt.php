@@ -160,7 +160,7 @@ class PurchaseReceipt implements PurchaseReceiptInterface
      * @param mixed|null $originalResponse
      * @return PurchaseReceipt
      */
-    public function setOriginalResponse(?$originalResponse): self
+    public function setOriginalResponse($originalResponse = null): self
     {
         $this->originalResponse = $originalResponse;
         return $this;

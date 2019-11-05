@@ -60,6 +60,7 @@ class Google extends AbstractProvider
         $productId = $data['productId'] ?? null;
         $purchaseToken = $data['purchaseToken'] ?? null;
         try {
+            $this->configureValidation($purchaseToken, $productId);
             $response = $this->validator
                 ->setProductId($productId)
                 ->setPurchaseToken($purchaseToken)
@@ -87,18 +88,30 @@ class Google extends AbstractProvider
         $productId = $data['productId'] ?? null;
         $purchaseToken = $data['purchaseToken'] ?? null;
         try {
+            $this->configureValidation($purchaseToken, $productId);
             $response = $this->validator
                 ->setProductId($productId)
                 ->setPurchaseToken($purchaseToken)
                 ->validateSubscription()
             ;
         } catch (\Exception $e) {
-            throw new RuntimeException($this, "{$e->getCode()} | {$e->getMessage()}");
+            throw new RuntimeException( "{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
 
         $subscription = (new GoogleReceiptComposer($response, $receiptData))->subscription();
 
         return $subscription;
+    }
+
+    /**
+     * Configure Gooogle Validator by setting purchase token and product ID after they were retrived
+     * @param string $purchaseToken
+     * @param string $productId
+     */
+    private function configureValidation(string $purchaseToken, string $productId): void
+    {
+        $this->validator->setPurchaseToken($purchaseToken);
+        $this->validator->setProductId($productId);
     }
 
     /**
@@ -134,6 +147,7 @@ class Google extends AbstractProvider
             $client->setScopes([\Google_Service_AndroidPublisher::ANDROIDPUBLISHER]);
             $publisher = new \Google_Service_AndroidPublisher($client);
             $this->validator = new Validator($publisher, false);
+            $this->validator->setPackageName($this->packageName);
         } catch (\Google_Exception $e) {
             throw new ConfigurationException($this, 'Google Client Error', null, $e);
         }
