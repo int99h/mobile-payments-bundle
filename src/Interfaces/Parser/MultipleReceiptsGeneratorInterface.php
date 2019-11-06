@@ -2,7 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
 
-interface ReceiptsGeneratorInterface
+interface MultipleReceiptsGeneratorInterface
 {
     /**
      * @return \Generator|null

@@ -9,7 +9,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-final class AppleSubscriptionReceiptComposer implements SingleSubscriptionReceiptInterface
+final class AppleSubscriptionReceiptCreator implements SingleSubscriptionReceiptInterface
 {
     /**
      * @var PurchaseItem|null
@@ -29,7 +29,7 @@ final class AppleSubscriptionReceiptComposer implements SingleSubscriptionReceip
     private $isSandbox;
 
     /**
-     * AppleSubscriptionReceiptComposer constructor.
+     * AppleSubscriptionReceiptCreator constructor.
      * @param PurchaseItem $purchaseItem
      * @param PendingRenewalInfo $pendingRenewalInfo
      * @param string $refreshPayload

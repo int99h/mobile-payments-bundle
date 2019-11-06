@@ -8,25 +8,25 @@ use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\SinglePurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 
-final class AppleLatestPurchaseReceipt implements SinglePurchaseReceiptInterface
+final class AppleLatestPurchaseReceiptCreator implements SinglePurchaseReceiptInterface
 {
     /**
      * @var AppleReceiptParserInterface
      */
-    private $applePaymentParser;
+    private $appleReceiptParser;
     /**
      * @var bool
      */
     private $isSandbox;
 
     /**
-     * AppleLatestPurchaseProductReceiptComposer constructor.
-     * @param AppleReceiptParserInterface $applePaymentParser
+     * AppleLatestPurchaseReceipt constructor.
+     * @param AppleReceiptParserInterface $appleReceiptParser
      * @param bool $isSandbox
      */
-    public function __construct(AppleReceiptParserInterface $applePaymentParser, bool $isSandbox = false)
+    public function __construct(AppleReceiptParserInterface $appleReceiptParser, bool $isSandbox = false)
     {
-        $this->applePaymentParser = $applePaymentParser;
+        $this->appleReceiptParser = $appleReceiptParser;
         $this->isSandbox = $isSandbox;
     }
 
@@ -35,10 +35,10 @@ final class AppleLatestPurchaseReceipt implements SinglePurchaseReceiptInterface
      */
     public function create(): ?PurchaseReceiptInterface
     {
-        foreach ($this->applePaymentParser->parsePurchases() as $purchaseItem) {
+        foreach ($this->appleReceiptParser->parsePurchases() as $purchaseItem) {
             return ApplePurchaseReceiptFactory::createFromParsedData(
                 $purchaseItem,
-                $this->applePaymentParser->parseRefreshPayload(),
+                $this->appleReceiptParser->parseRefreshPayload(),
                 $this->isSandbox
             );
         }

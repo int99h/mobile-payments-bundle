@@ -9,5 +9,5 @@ interface MultiplePurchaseReceiptsInterface
     /**
      * @return PurchaseReceiptInterface[]
      */
-    public function render(): array;
+    public function create(): array;
 }

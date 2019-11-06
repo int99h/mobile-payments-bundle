@@ -5,17 +5,17 @@ namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Composer;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\MultipleSubscriptionReceiptsInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptsGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\MultipleReceiptsGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-final class AppleSubscriptionReceiptsCollection implements MultipleSubscriptionReceiptsInterface, ReceiptsGeneratorInterface
+final class AppleSubscriptionReceiptsCreator implements MultipleSubscriptionReceiptsInterface, MultipleReceiptsGeneratorInterface
 {
     /**
      * @var AppleReceiptParserInterface
      */
-    private $applePaymentParser;
+    private $appleReceiptParser;
     /**
      * @var int
      */
@@ -30,20 +30,20 @@ final class AppleSubscriptionReceiptsCollection implements MultipleSubscriptionR
     private $isSandbox;
 
     /**
-     * AppleSubscriptionReceiptsCollection constructor.
-     * @param AppleReceiptParserInterface $applePaymentParser
+     * AppleSubscriptionReceiptsCreator constructor.
+     * @param AppleReceiptParserInterface $appleReceiptParser
      * @param string $productId
-     * @param int $quantity - if set to 0, all subscription items are rendered/generated
+     * @param int $quantity
      * @param bool $isSandbox
      */
     public function __construct(
-        AppleReceiptParserInterface $applePaymentParser,
+        AppleReceiptParserInterface $appleReceiptParser,
         string $productId,
         int $quantity = 0,
         bool $isSandbox = false
     )
     {
-        $this->applePaymentParser = $applePaymentParser;
+        $this->appleReceiptParser = $appleReceiptParser;
         $this->quantity = $quantity;
         $this->productId = $productId;
         $this->isSandbox = $isSandbox;
@@ -54,22 +54,21 @@ final class AppleSubscriptionReceiptsCollection implements MultipleSubscriptionR
      *
      * @return SubscriptionReceiptInterface[]
      */
-    public function render(): array
+    public function create(): array
     {
-        $subscriptionProductReceipts = [];
+        $subscriptionReceipts = [];
 
-        $pendingRenewalInfo = $this->applePaymentParser->parsePendingRenewalInfo($this->productId);
+        $pendingRenewalInfo = $this->appleReceiptParser->parsePendingRenewalInfo($this->productId);
 
         if (!$pendingRenewalInfo) {
             return [];
         }
 
-        foreach ($this->applePaymentParser->parseSubscriptions($this->productId, $this->quantity) as $purchaseItem) {
-            $subscriptionProductReceipts[] =
-                $this->createSubscriptionReceipt($purchaseItem, $pendingRenewalInfo);
+        foreach ($this->appleReceiptParser->parseSubscriptions($this->productId, $this->quantity) as $purchaseItem) {
+            $subscriptionReceipts[] = $this->createSubscriptionReceipt($purchaseItem, $pendingRenewalInfo);
         }
 
-        return $subscriptionProductReceipts;
+        return $subscriptionReceipts;
     }
 
     /**
@@ -79,13 +78,13 @@ final class AppleSubscriptionReceiptsCollection implements MultipleSubscriptionR
      */
     public function generate()
     {
-        $pendingRenewalInfo = $this->applePaymentParser->parsePendingRenewalInfo($this->productId);
+        $pendingRenewalInfo = $this->appleReceiptParser->parsePendingRenewalInfo($this->productId);
 
         if (!$pendingRenewalInfo) {
             return null;
         }
 
-        foreach ($this->applePaymentParser->parseSubscriptions($this->productId, $this->quantity) as $purchaseItem) {
+        foreach ($this->appleReceiptParser->parseSubscriptions($this->productId, $this->quantity) as $purchaseItem) {
             yield $this->createSubscriptionReceipt($purchaseItem, $pendingRenewalInfo);
         }
     }
@@ -100,10 +99,10 @@ final class AppleSubscriptionReceiptsCollection implements MultipleSubscriptionR
         PendingRenewalInfo $pendingRenewalInfo
     ): ?SubscriptionReceiptInterface
     {
-        return (new AppleSubscriptionReceiptComposer(
+        return (new AppleSubscriptionReceiptCreator(
             $purchaseItem,
             $pendingRenewalInfo,
-            $this->applePaymentParser->parseRefreshPayload(),
+            $this->appleReceiptParser->parseRefreshPayload(),
             $this->isSandbox
         ))->create();
     }

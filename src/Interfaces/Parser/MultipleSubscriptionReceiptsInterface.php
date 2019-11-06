@@ -9,5 +9,5 @@ interface MultipleSubscriptionReceiptsInterface
     /**
      * @return SubscriptionReceiptInterface[]
      */
-    public function render(): array;
+    public function create(): array;
 }

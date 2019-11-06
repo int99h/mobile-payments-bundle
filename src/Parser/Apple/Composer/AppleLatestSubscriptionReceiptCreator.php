@@ -10,7 +10,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-final class AppleLatestSubscriptionReceipt implements SingleSubscriptionReceiptInterface
+final class AppleLatestSubscriptionReceiptCreator implements SingleSubscriptionReceiptInterface
 {
     /**
      * @var PurchaseItem|null
@@ -30,18 +30,18 @@ final class AppleLatestSubscriptionReceipt implements SingleSubscriptionReceiptI
     private $isSandbox;
 
     /**
-     * AppleSubscriptionReceiptComposer constructor.
-     * @param AppleReceiptParserInterface $applePaymentParser
+     * AppleLatestSubscriptionReceipt constructor.
+     * @param AppleReceiptParserInterface $appleReceiptParser
      * @param bool $isSandbox
      */
-    public function __construct(AppleReceiptParserInterface $applePaymentParser, bool $isSandbox = false)
+    public function __construct(AppleReceiptParserInterface $appleReceiptParser, bool $isSandbox = false)
     {
-        $this->purchaseItem = $applePaymentParser->parseSubscription();
+        $this->purchaseItem = $appleReceiptParser->parseSubscription();
         $this->pendingRenewalInfo = null;
         if ($this->purchaseItem) {
-            $this->pendingRenewalInfo = $applePaymentParser->parsePendingRenewalInfo($this->purchaseItem->getProductId());
+            $this->pendingRenewalInfo = $appleReceiptParser->parsePendingRenewalInfo($this->purchaseItem->getProductId());
         }
-        $this->refreshPayload = $applePaymentParser->parseRefreshPayload();
+        $this->refreshPayload = $appleReceiptParser->parseRefreshPayload();
         $this->isSandbox = $isSandbox;
     }
 
