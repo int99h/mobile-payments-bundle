@@ -37,7 +37,7 @@ final class ApplePurchaseReceiptsCollection implements MultiplePurchaseReceiptsI
     {
         $purchaseProductReceipts = [];
 
-        foreach ($this->applePaymentParser->parsePurchaseProducts() as $purchaseItem) {
+        foreach ($this->applePaymentParser->parsePurchases() as $purchaseItem) {
             $purchaseProductReceipts[] = ApplePurchaseReceiptFactory::createFromParsedData(
                 $purchaseItem,
                 $this->applePaymentParser->parseRefreshPayload(),

@@ -35,7 +35,7 @@ final class AppleLatestPurchaseReceipt implements SinglePurchaseReceiptInterface
      */
     public function create(): ?PurchaseReceiptInterface
     {
-        foreach ($this->applePaymentParser->parsePurchaseProducts() as $purchaseItem) {
+        foreach ($this->applePaymentParser->parsePurchases() as $purchaseItem) {
             return ApplePurchaseReceiptFactory::createFromParsedData(
                 $purchaseItem,
                 $this->applePaymentParser->parseRefreshPayload(),

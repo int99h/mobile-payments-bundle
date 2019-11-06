@@ -3,8 +3,8 @@
 namespace AnyKey\MobilePaymentsBundle\Parser;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\PurchaseItemGeneratorInterface;
-use AnyKey\MobilePaymentsBundle\Parser\Apple\PurchaseItemGenerator;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Parser\Apple\AppleReceiptGenerator;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 use ReceiptValidator\iTunes\ResponseInterface;
@@ -16,18 +16,18 @@ class AppleReceiptParser implements AppleReceiptParserInterface
      */
     private $response;
     /**
-     * @var PurchaseItemGeneratorInterface
+     * @var ReceiptGeneratorInterface
      */
     private $purchaseItemGenerator;
 
     /**
      * AppleReceiptParser constructor.
      * @param ResponseInterface $response
-     * @param PurchaseItemGeneratorInterface|null $purchaseItemGenerator
+     * @param ReceiptGeneratorInterface|null $purchaseItemGenerator
      */
     public function __construct(
         ResponseInterface $response,
-        PurchaseItemGeneratorInterface $purchaseItemGenerator = null
+        ReceiptGeneratorInterface $purchaseItemGenerator = null
     )
     {
         $this->response = $response;
@@ -38,7 +38,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
         $rawResponse = $this->getRawResponse();
 
         if (!$purchaseItemGenerator) {
-            $this->purchaseItemGenerator = new PurchaseItemGenerator();
+            $this->purchaseItemGenerator = new AppleReceiptGenerator();
         } else {
             $this->purchaseItemGenerator = $purchaseItemGenerator;
         }
@@ -85,7 +85,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     public function parseSubscription(): ?PurchaseItem
     {
         /** @var PurchaseItem $purchaseItem */
-        foreach ($this->purchaseItemGenerator->generateSubscriptionPurchaseItems() as $purchaseItem) {
+        foreach ($this->purchaseItemGenerator->generateSubscriptions() as $purchaseItem) {
             return $purchaseItem;
         }
 
@@ -95,12 +95,12 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     /**
      * @return PurchaseItem[]
      */
-    public function parsePurchaseProducts(): array
+    public function parsePurchases(): array
     {
         $purchaseProducts = [];
 
         /** @var PurchaseItem $purchaseItem */
-        foreach ($this->purchaseItemGenerator->generateProductPurchaseItems() as $purchaseItem) {
+        foreach ($this->purchaseItemGenerator->generatePurchases() as $purchaseItem) {
             $purchaseProducts[$purchaseItem->getProductId()] = $purchaseItem;
         }
 
@@ -127,7 +127,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
         $subscriptionsCount = 0;
 
         /** @var PurchaseItem $purchaseItem */
-        foreach ($this->purchaseItemGenerator->generateSubscriptionPurchaseItems() as $purchaseItem) {
+        foreach ($this->purchaseItemGenerator->generateSubscriptions() as $purchaseItem) {
             if ($productId !== $purchaseItem->getProductId()) {
                 continue;
             }

@@ -31,7 +31,7 @@ interface AppleReceiptParserInterface
     /**
      * @return PurchaseItem[]
      */
-    public function parsePurchaseProducts(): array;
+    public function parsePurchases(): array;
 
     /**
      * @return string

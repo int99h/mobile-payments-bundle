@@ -3,11 +3,11 @@
 
 namespace AnyKey\MobilePaymentsBundle\Parser\Apple;
 
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\PurchaseItemGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
 use Peekmo\JsonPath\JsonStore;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-class PurchaseItemGenerator implements PurchaseItemGeneratorInterface
+class AppleReceiptGenerator implements ReceiptGeneratorInterface
 {
     /**
      * @var string
@@ -18,9 +18,9 @@ class PurchaseItemGenerator implements PurchaseItemGeneratorInterface
      * Set a raw response for the generators to extract data from
      *
      * @param string $rawResponse
-     * @return PurchaseItemGeneratorInterface
+     * @return ReceiptGeneratorInterface
      */
-    public function init(string $rawResponse): PurchaseItemGeneratorInterface
+    public function init(string $rawResponse): ReceiptGeneratorInterface
     {
         $this->rawResponse = $rawResponse;
 
@@ -32,7 +32,7 @@ class PurchaseItemGenerator implements PurchaseItemGeneratorInterface
      * @return \Generator
      * @throws \ReceiptValidator\RunTimeException
      */
-    public function generateProductPurchaseItems()
+    public function generatePurchases()
     {
         $purchaseProducts = @(new JsonStore($this->rawResponse))
             ->get('$.latest_receipt_info[?(@.expires_date==null)]');
@@ -46,7 +46,7 @@ class PurchaseItemGenerator implements PurchaseItemGeneratorInterface
      * Generate subscription purchase items. Sorted by the latest purchase date.
      * @return \Generator
      */
-    public function generateSubscriptionPurchaseItems()
+    public function generateSubscriptions()
     {
         $subscriptionProducts = @(new JsonStore($this->rawResponse))
             ->get('$.latest_receipt_info[?(@.expires_date!=null)]');
