@@ -61,7 +61,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
 
 
     /**
-     * Parse pending renewal info for subscription purchase item.
+     * Parse subscription renewal info by product ID
      *
      * @param string $productId
      * @return PendingRenewalInfo|null
@@ -78,8 +78,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     }
 
     /**
-     * Retrieve subscription purchase item.
-     *
+     * Retrieve the latest subscription from an Apple receipt
      * @return PurchaseItem|null
      */
     public function parseSubscription(): ?PurchaseItem
@@ -93,6 +92,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     }
 
     /**
+     * Parse purchases from an Apple receipt
      * @return PurchaseItem[]
      */
     public function parsePurchases(): array
@@ -108,6 +108,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     }
 
     /**
+     * Parse refresh payload that is required to request updates on the latest receipt
      * @return string
      */
     public function parseRefreshPayload(): string
@@ -116,7 +117,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     }
 
     /**
-     * Parse subscription transactions by subscription product ID from the receipt
+     * Parse subscriptions by product ID from an Apple receipt
      *
      * @param string $productId subscription product ID to look for
      * @param int $quantity     (if set to 0, all items are being parsed)

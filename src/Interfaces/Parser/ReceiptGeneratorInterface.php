@@ -7,7 +7,7 @@ namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
 interface ReceiptGeneratorInterface
 {
     /**
-     * Set a raw response for the generators to extract data from
+     * Set a raw response for the generators to parse data from
      *
      * @param string $rawResponse
      * @return ReceiptGeneratorInterface
@@ -15,13 +15,13 @@ interface ReceiptGeneratorInterface
     public function init(string $rawResponse): self;
 
     /**
-     * Generate one-time product purchase items
+     * Generate one-time purchases
      * @return \Generator
      */
     public function generatePurchases();
 
     /**
-     * Generate subscription purchase items. Sorted by the latest purchase date.
+     * Generate subscriptions. Subscriptions are sorted by newest.
      * @return \Generator
      */
     public function generateSubscriptions();
