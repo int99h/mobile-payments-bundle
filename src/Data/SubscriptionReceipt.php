@@ -114,7 +114,7 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * Returns an original response object of a payment provider
-     * @return mixed
+     * @return mixed|null
      */
     public function getOriginalResponse()
     {
