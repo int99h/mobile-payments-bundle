@@ -4,13 +4,46 @@
 namespace AnyKey\MobilePaymentsBundle\Factory;
 
 
+use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-class AppleSubscriptionReceiptFactory
+class AppleReceiptFactory
 {
+    /**
+     * Create a purchase receipt from parsed data
+     *
+     * @param PurchaseItem $purchaseItem
+     * @param string $refreshPayload
+     * @param bool $isSandbox
+     * @return PurchaseReceiptInterface
+     */
+    static public function createPurchaseFromParsedData(
+        PurchaseItem $purchaseItem,
+        string $refreshPayload,
+        bool $isSandbox
+    ): PurchaseReceiptInterface
+    {
+        $receipt = (new PurchaseReceipt())
+            ->setProductId($purchaseItem->getProductId())
+            ->setTransactionId($purchaseItem->getTransactionId())
+            ->setOrderId($purchaseItem->getOriginalTransactionId())
+            ->setRefreshPayload($refreshPayload)
+            ->setSandbox($isSandbox)
+            ->setRawResponse(json_encode($purchaseItem->getRawResponse()))
+        ;
+
+        $rawResponse = $purchaseItem->getRawResponse();
+        if ($rawResponse) {
+            $receipt->setRawResponse(json_encode($rawResponse));
+        }
+
+        return $receipt;
+    }
+
     /**
      * Create a subscription receipt from parsed data
      *
@@ -20,7 +53,7 @@ class AppleSubscriptionReceiptFactory
      * @param bool $isSandbox
      * @return SubscriptionReceiptInterface
      */
-    static public function createFromParsedData(
+    static public function createSubscriptionFromParsedData(
         PurchaseItem $purchaseItem,
         PendingRenewalInfo $pendingRenewalInfo,
         string $refreshPayload,

@@ -1,14 +1,13 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Composer;
+namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Creator;
 
-use AnyKey\MobilePaymentsBundle\Factory\ApplePurchaseReceiptFactory;
+use AnyKey\MobilePaymentsBundle\Factory\AppleReceiptFactory;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\SinglePurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 
-final class AppleLatestPurchaseReceiptCreator implements SinglePurchaseReceiptInterface
+class ApplePurchaseReceiptsCreator
 {
     /**
      * @var AppleReceiptParserInterface
@@ -20,7 +19,7 @@ final class AppleLatestPurchaseReceiptCreator implements SinglePurchaseReceiptIn
     private $isSandbox;
 
     /**
-     * AppleLatestPurchaseReceipt constructor.
+     * ApplePurchaseReceiptsCreator constructor.
      * @param AppleReceiptParserInterface $appleReceiptParser
      * @param bool $isSandbox
      */
@@ -31,18 +30,20 @@ final class AppleLatestPurchaseReceiptCreator implements SinglePurchaseReceiptIn
     }
 
     /**
-     * @return PurchaseReceiptInterface|null
+     * @return PurchaseReceiptInterface[]
      */
-    public function create(): ?PurchaseReceiptInterface
+    public function create(): array
     {
+        $purchaseReceipts = [];
+
         foreach ($this->appleReceiptParser->parsePurchases() as $purchaseItem) {
-            return ApplePurchaseReceiptFactory::createFromParsedData(
+            $purchaseReceipts[] = AppleReceiptFactory::createPurchaseFromParsedData(
                 $purchaseItem,
                 $this->appleReceiptParser->parseRefreshPayload(),
                 $this->isSandbox
             );
         }
 
-        return null;
+        return $purchaseReceipts;
     }
 }

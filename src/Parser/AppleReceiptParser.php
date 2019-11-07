@@ -94,6 +94,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     /**
      * Parse purchases from an Apple receipt
      * @return PurchaseItem[]
+     * @throws \ReceiptValidator\RunTimeException
      */
     public function parsePurchases(): array
     {

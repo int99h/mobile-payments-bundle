@@ -28,13 +28,14 @@ class Apple extends AbstractProvider
 
     /** @var Validator */
     protected $validator;
-
     /** @var bool */
     private $sandbox;
     /** @var string */
     private $endpoint;
     /** @var string|null */
     private $paymentKey;
+    /** @var ResponseInterface */
+    private $response;
 
     /**
      * Apple constructor.
@@ -59,6 +60,7 @@ class Apple extends AbstractProvider
      * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      * @throws ReceiptException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
      */
     public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
@@ -76,6 +78,7 @@ class Apple extends AbstractProvider
      * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      * @throws ReceiptException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
@@ -90,7 +93,7 @@ class Apple extends AbstractProvider
 
     /**
      * @param ReceiptDataInterface $receiptData
-     * @return mixed|ResponseInterface
+     * @return ResponseInterface
      * @throws ConfigurationException
      * @throws FraudException
      * @throws GuzzleException
@@ -120,6 +123,8 @@ class Apple extends AbstractProvider
             throw new FraudException('Fraudulent Apple Receipt.');
         }
 
+        $this->response = $response;
+
         return $response;
     }
 
@@ -148,5 +153,19 @@ class Apple extends AbstractProvider
     public static function getName(): string
     {
         return self::NAME;
+    }
+
+    /**
+     * Retrieve the original response from the payment provider
+     * @return ResponseInterface
+     * @throws ReceiptException
+     */
+    public function getResponse()
+    {
+        if (!$this->response) {
+            throw new ReceiptException('Validate Apple receipt first.');
+        }
+
+        return $this->response;
     }
 }

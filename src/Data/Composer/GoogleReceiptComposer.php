@@ -2,6 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
@@ -9,14 +10,13 @@ use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
 use Google_Service_AndroidPublisher_ProductPurchase;
-use http\Exception\RuntimeException;
 use ReceiptValidator\GooglePlay\AbstractResponse;
 use ReceiptValidator\GooglePlay\PurchaseResponse;
 use ReceiptValidator\GooglePlay\SubscriptionResponse;
 
 /**
  * Class GoogleReceiptComposer
- * @package AnyKey\MobilePaymentsBundle\Data\Composer
+ * @package AnyKey\MobilePaymentsBundle\Data\Creator
  */
 class GoogleReceiptComposer implements ReceiptComposerInterface
 {
@@ -48,6 +48,7 @@ class GoogleReceiptComposer implements ReceiptComposerInterface
     /**
      * Compose a purchase receipt that fits providers' validation criteria
      * @return PurchaseReceiptInterface
+     * @throws RuntimeException
      */
     public function purchase(): PurchaseReceiptInterface
     {

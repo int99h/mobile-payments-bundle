@@ -1,16 +1,14 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Composer;
+namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Creator;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\MultipleSubscriptionReceiptsInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\MultipleReceiptsGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-final class AppleSubscriptionReceiptsCreator implements MultipleSubscriptionReceiptsInterface, MultipleReceiptsGeneratorInterface
+class AppleSubscriptionReceiptsCreator
 {
     /**
      * @var AppleReceiptParserInterface

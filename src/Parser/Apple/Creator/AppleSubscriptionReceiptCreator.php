@@ -1,15 +1,14 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Composer;
+namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Creator;
 
-use AnyKey\MobilePaymentsBundle\Factory\AppleSubscriptionReceiptFactory;
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\SingleSubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Factory\AppleReceiptFactory;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use ReceiptValidator\iTunes\PendingRenewalInfo;
 use ReceiptValidator\iTunes\PurchaseItem;
 
-final class AppleSubscriptionReceiptCreator implements SingleSubscriptionReceiptInterface
+class AppleSubscriptionReceiptCreator
 {
     /**
      * @var PurchaseItem|null
@@ -53,7 +52,7 @@ final class AppleSubscriptionReceiptCreator implements SingleSubscriptionReceipt
      */
     public function create(): ?SubscriptionReceiptInterface
     {
-        return AppleSubscriptionReceiptFactory::createFromParsedData(
+        return AppleReceiptFactory::createSubscriptionFromParsedData(
             $this->purchaseItem,
             $this->pendingRenewalInfo,
             $this->refreshPayload,

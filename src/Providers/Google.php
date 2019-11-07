@@ -4,10 +4,13 @@ namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Data\Composer\GoogleReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Data\Receipt\GoogleReceiptData;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use ReceiptValidator\GooglePlay\PurchaseResponse;
+use ReceiptValidator\GooglePlay\SubscriptionResponse;
 use ReceiptValidator\GooglePlay\Validator;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
@@ -28,6 +31,8 @@ class Google extends AbstractProvider
     private $billingKey;
     /** @var array|null */
     private $paymentConfig;
+    /** @var SubscriptionResponse|PurchaseResponse */
+    private $response;
 
     /**
      * Google constructor.
@@ -159,5 +164,19 @@ class Google extends AbstractProvider
     public static function getName(): string
     {
         return self::NAME;
+    }
+
+    /**
+     * Retrieve the original response from the payment provider
+     * @return SubscriptionResponse|PurchaseResponse
+     * @throws ReceiptException
+     */
+    public function getResponse()
+    {
+        if (!$this->response) {
+            throw new ReceiptException('Validate Google receipt first.');
+        }
+
+        return $this->response;
     }
 }

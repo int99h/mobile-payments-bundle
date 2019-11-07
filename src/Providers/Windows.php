@@ -4,6 +4,7 @@ namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Data\Composer\WindowsReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
@@ -23,9 +24,10 @@ class Windows extends AbstractProvider
 
     /** @var Validator */
     protected $validator;
-
     /** @var CacheAdapter */
     private $cache;
+    /** @var bool */
+    private $response;
 
     /**
      * Windows constructor.
@@ -93,6 +95,8 @@ class Windows extends AbstractProvider
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
 
+        $this->response = $response;
+
         return $response;
     }
 
@@ -110,5 +114,19 @@ class Windows extends AbstractProvider
     protected function initValidator(): void
     {
         $this->validator = new Validator($this->cache);
+    }
+
+    /**
+     * Retrieve the original response from the payment provider
+     * @throws ReceiptException
+     * @return bool
+     */
+    public function getResponse()
+    {
+        if (!$this->response) {
+            throw new ReceiptException('Validate Windows receipt first.');
+        }
+
+        return $this->response;
     }
 }
