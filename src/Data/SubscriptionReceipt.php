@@ -114,7 +114,7 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
 
     /**
      * Returns an original response object of a payment provider
-     * @return mixed
+     * @return mixed|null
      */
     public function getOriginalResponse()
     {
@@ -202,7 +202,7 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
      * @param mixed|null $originalResponse
      * @return SubscriptionReceipt
      */
-    public function setOriginalResponse(?$originalResponse): self
+    public function setOriginalResponse($originalResponse = null): self
     {
         $this->originalResponse = $originalResponse;
 

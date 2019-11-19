@@ -4,6 +4,7 @@ namespace AnyKey\MobilePaymentsBundle\Providers;
 
 use AnyKey\MobilePaymentsBundle\Data\Composer\AmazonReceiptComposer;
 use AnyKey\MobilePaymentsBundle\Data\Receipt\AmazonReceiptData;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
@@ -31,6 +32,8 @@ class Amazon extends AbstractProvider
     private $endpoint;
     /** @var string|null */
     private $secret;
+    /** @var Response */
+    private $response;
 
     /**
      * Amazon constructor.
@@ -84,6 +87,7 @@ class Amazon extends AbstractProvider
      * @return SubscriptionReceiptInterface
      * @throws ConfigurationException
      * @throws RuntimeException
+     * @throws \Exception
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
@@ -119,6 +123,8 @@ class Amazon extends AbstractProvider
             throw new RuntimeException("{$e->getCode()} | {$e->getMessage()}", null, $e);
         }
 
+        $this->response = $response;
+
         return $response;
     }
 
@@ -140,5 +146,19 @@ class Amazon extends AbstractProvider
     public static function getName(): string
     {
         return self::NAME;
+    }
+
+    /**
+     * Retrieve the original response from the payment provider
+     * @return Response
+     * @throws ReceiptException
+     */
+    public function getResponse()
+    {
+        if (!$this->response) {
+            throw new ReceiptException('Validate Amazon receipt first.');
+        }
+
+        return $this->response;
     }
 }

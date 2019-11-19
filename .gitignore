@@ -7,4 +7,5 @@
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
+symfony.lock
 ###< phpunit/phpunit ###

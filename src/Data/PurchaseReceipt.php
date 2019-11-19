@@ -89,7 +89,7 @@ class PurchaseReceipt implements PurchaseReceiptInterface
     /**
      * Returns an original response object of a payment provider
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function getOriginalResponse()
     {
@@ -160,7 +160,7 @@ class PurchaseReceipt implements PurchaseReceiptInterface
      * @param mixed|null $originalResponse
      * @return PurchaseReceipt
      */
-    public function setOriginalResponse(?$originalResponse): self
+    public function setOriginalResponse($originalResponse = null): self
     {
         $this->originalResponse = $originalResponse;
         return $this;

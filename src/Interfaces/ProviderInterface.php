@@ -16,6 +16,12 @@ interface ProviderInterface
     public function isEnabled();
 
     /**
+     * Retrieve the original response from the payment provider
+     * @return mixed
+     */
+    public function getResponse();
+
+    /**
      * Validate a one-time purchase based payment
      *
      * @param ReceiptDataInterface $receiptData
