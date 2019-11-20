@@ -3,8 +3,8 @@
 
 namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
 
-use ReceiptValidator\iTunes\PendingRenewalInfo;
-use ReceiptValidator\iTunes\PurchaseItem;
+use Data\Validator\iTunes\PendingRenewalInfo;
+use Data\Validator\iTunes\PurchaseItem;
 
 interface AppleReceiptParserInterface
 {

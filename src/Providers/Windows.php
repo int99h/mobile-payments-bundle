@@ -9,7 +9,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use ReceiptValidator\WindowsStore\Validator;
+use Data\Validator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
 use AnyKey\MobilePaymentsBundle\Adapters\CacheAdapter;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
@@ -52,6 +52,7 @@ class Windows extends AbstractProvider
      * @return PurchaseReceiptInterface
      * @throws InvalidReceiptException
      * @throws RuntimeException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
@@ -70,6 +71,7 @@ class Windows extends AbstractProvider
      * @return SubscriptionReceiptInterface
      * @throws InvalidReceiptException
      * @throws RuntimeException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
@@ -86,6 +88,7 @@ class Windows extends AbstractProvider
      * @param ReceiptDataInterface $receiptData
      * @return bool|mixed
      * @throws RuntimeException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function validate(ReceiptDataInterface $receiptData)
     {

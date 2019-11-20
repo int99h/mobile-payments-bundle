@@ -5,9 +5,9 @@ namespace AnyKey\MobilePaymentsBundle\Parser;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Parser\Apple\AppleReceiptGenerator;
-use ReceiptValidator\iTunes\PendingRenewalInfo;
-use ReceiptValidator\iTunes\PurchaseItem;
-use ReceiptValidator\iTunes\ResponseInterface;
+use Data\Validator\iTunes\PendingRenewalInfo;
+use Data\Validator\iTunes\PurchaseItem;
+use Data\Validator\iTunes\ResponseInterface;
 
 class AppleReceiptParser implements AppleReceiptParserInterface
 {
@@ -94,7 +94,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     /**
      * Parse purchases from an Apple receipt
      * @return PurchaseItem[]
-     * @throws \ReceiptValidator\RunTimeException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\RuntimeException
      */
     public function parsePurchases(): array
     {

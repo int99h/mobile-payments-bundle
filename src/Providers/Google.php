@@ -9,11 +9,11 @@ use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use ReceiptValidator\GooglePlay\PurchaseResponse;
-use ReceiptValidator\GooglePlay\SubscriptionResponse;
-use ReceiptValidator\GooglePlay\Validator;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use Data\Validator\GooglePlay\PurchaseResponse;
+use Data\Validator\GooglePlay\SubscriptionResponse;
+use Data\Validator\GooglePlay\Validator;
 
 /**
  * Class Google

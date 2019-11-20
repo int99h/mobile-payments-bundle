@@ -4,12 +4,14 @@
 namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
 
 
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+
 interface ReceiptGeneratorInterface
 {
     /**
      * Generate one-time product purchase items
      * @return \Generator
-     * @throws \ReceiptValidator\RunTimeException
+     * @throws RuntimeException
      */
     public function generatePurchases();
 

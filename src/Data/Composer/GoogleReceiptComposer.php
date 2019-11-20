@@ -9,10 +9,10 @@ use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use Data\Validator\GooglePlay\AbstractResponse;
+use Data\Validator\GooglePlay\PurchaseResponse;
+use Data\Validator\GooglePlay\SubscriptionResponse;
 use Google_Service_AndroidPublisher_ProductPurchase;
-use ReceiptValidator\GooglePlay\AbstractResponse;
-use ReceiptValidator\GooglePlay\PurchaseResponse;
-use ReceiptValidator\GooglePlay\SubscriptionResponse;
 
 /**
  * Class GoogleReceiptComposer

@@ -9,9 +9,9 @@ use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use Data\Validator\Amazon\Response;
+use Data\Validator\Amazon\Validator;
 use GuzzleHttp\Exception\GuzzleException;
-use ReceiptValidator\Amazon\Validator;
-use ReceiptValidator\Amazon\Response;
 use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 
@@ -41,7 +41,7 @@ class Amazon extends AbstractProvider
      * @param string|null $mode
      * @param string|null $secret
      * @throws ConfigurationException
-     * @throws \ReceiptValidator\RunTimeException
+     * @throws RuntimeException
      */
     public function __construct(bool $enabled, ?string $mode, ?string $secret)
     {
@@ -130,7 +130,7 @@ class Amazon extends AbstractProvider
 
     /**
      * @throws ConfigurationException
-     * @throws \ReceiptValidator\RunTimeException
+     * @throws RuntimeException
      */
     protected function initValidator(): void
     {

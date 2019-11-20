@@ -8,8 +8,8 @@ use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use ReceiptValidator\iTunes\PendingRenewalInfo;
-use ReceiptValidator\iTunes\PurchaseItem;
+use Data\Validator\iTunes\PendingRenewalInfo;
+use Data\Validator\iTunes\PurchaseItem;
 
 class AppleReceiptFactory
 {

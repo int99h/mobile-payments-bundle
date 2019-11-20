@@ -6,8 +6,8 @@ namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Creator;
 use AnyKey\MobilePaymentsBundle\Factory\AppleReceiptFactory;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use ReceiptValidator\iTunes\PendingRenewalInfo;
-use ReceiptValidator\iTunes\PurchaseItem;
+use Data\Validator\iTunes\PendingRenewalInfo;
+use Data\Validator\iTunes\PurchaseItem;
 
 class AppleLatestSubscriptionReceiptCreator
 {

@@ -12,7 +12,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
 use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
-use ReceiptValidator\Amazon\Response;
+use Data\Validator\Amazon\Response;
 
 class AmazonReceiptComposer implements ReceiptComposerInterface
 {

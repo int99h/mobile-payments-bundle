@@ -11,7 +11,7 @@ use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
 use AnyKey\MobilePaymentsBundle\Parser\Apple\Creator\AppleLatestPurchaseReceiptCreator;
 use AnyKey\MobilePaymentsBundle\Parser\Apple\Creator\AppleLatestSubscriptionReceiptCreator;
 use AnyKey\MobilePaymentsBundle\Parser\AppleReceiptParser;
-use ReceiptValidator\iTunes\ResponseInterface;
+use Data\Validator\iTunes\ResponseInterface;
 
 /**
  * Class AppleReceiptComposer

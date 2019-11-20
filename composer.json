@@ -15,8 +15,13 @@
         "symfony/flex": "^1.3",
         "symfony/framework-bundle": "^4.3",
         "symfony/yaml": "^4.3",
-        "aporat/store-receipt-validator": "^3.3",
-        "peekmo/jsonpath": "dev-master"
+        "peekmo/jsonpath": "dev-master",
+        "ext-dom": "*",
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "~6.3",
+        "nesbot/carbon": "^1.0|^2.0",
+        "google/apiclient": "~2.0",
+        "robrichards/xmlseclibs": "^2.0|^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.4"

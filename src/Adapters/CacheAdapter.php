@@ -2,7 +2,7 @@
 
 namespace AnyKey\MobilePaymentsBundle\Adapters;
 
-use ReceiptValidator\WindowsStore\CacheInterface as NeededCacheInterface;
+use Data\Validator\WindowsStore\CacheInterface as NeededCacheInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -33,6 +33,7 @@ class CacheAdapter implements NeededCacheInterface
 
     /**
      * @inheritDoc
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function get($key)
     {
@@ -43,6 +44,7 @@ class CacheAdapter implements NeededCacheInterface
 
     /**
      * @inheritDoc
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function put($key, $value, $minutes)
     {
