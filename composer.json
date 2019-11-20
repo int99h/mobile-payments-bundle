@@ -15,7 +15,7 @@
         "symfony/flex": "^1.3",
         "symfony/framework-bundle": "^4.3",
         "symfony/yaml": "^4.3",
-        "peekmo/jsonpath": "dev-master",
+        "peekmo/jsonpath": "v2.0-ALPHA",
         "ext-dom": "*",
         "ext-openssl": "*",
         "guzzlehttp/guzzle": "~6.3",
