@@ -3,6 +3,7 @@
 namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
 use AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
@@ -21,14 +22,20 @@ class AppleReceiptComposer implements ReceiptComposerInterface
 {
     /** @var ResponseInterface */
     private $response;
+    /**
+     * @var ReceiptGeneratorInterface|null
+     */
+    private $receiptGenerator;
 
     /**
      * AppleReceiptComposer constructor.
      * @param ResponseInterface $response
+     * @param ReceiptGeneratorInterface $receiptGenerator
      */
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseInterface $response, ReceiptGeneratorInterface $receiptGenerator = null)
     {
         $this->response = $response;
+        $this->receiptGenerator = $receiptGenerator;
     }
 
     /**
@@ -39,7 +46,7 @@ class AppleReceiptComposer implements ReceiptComposerInterface
     public function purchase(): PurchaseReceiptInterface
     {
         $receipt = (new AppleLatestPurchaseReceiptCreator(
-            new AppleReceiptParser($this->response),
+            new AppleReceiptParser($this->response, $this->receiptGenerator),
             $this->response->isSandbox()
         ))->create();
 
@@ -62,7 +69,7 @@ class AppleReceiptComposer implements ReceiptComposerInterface
     public function subscription(): SubscriptionReceiptInterface
     {
         $receipt = (new AppleLatestSubscriptionReceiptCreator(
-            new AppleReceiptParser($this->response),
+            new AppleReceiptParser($this->response, $this->receiptGenerator),
             $this->response->isSandbox()
         ))->create();
 

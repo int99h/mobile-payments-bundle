@@ -61,11 +61,19 @@ class Apple extends AbstractProvider
      * @return PurchaseReceiptInterface
      * @throws ReceiptException
      * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
+     * @throws RuntimeException
      */
     public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
+        if (!$receiptData instanceof AppleReceiptData) {
+            throw new RuntimeException('Use AppleReceiptData to validate the receipt.');
+        }
+
         try {
-            $purchase = (new AppleReceiptComposer($this->validate($receiptData)))->purchase();
+            $purchase = (new AppleReceiptComposer(
+                $this->validate($receiptData),
+                $receiptData->getReceiptGenerator()
+            ))->purchase();
         } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
@@ -79,11 +87,19 @@ class Apple extends AbstractProvider
      * @return SubscriptionReceiptInterface
      * @throws ReceiptException
      * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
+     * @throws RuntimeException
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
+        if (!$receiptData instanceof AppleReceiptData) {
+            throw new RuntimeException('Use AppleReceiptData to validate the receipt.');
+        }
+
         try {
-            $subscription = (new AppleReceiptComposer($this->validate($receiptData)))->subscription();
+            $subscription = (new AppleReceiptComposer(
+                $this->validate($receiptData),
+                $receiptData->getReceiptGenerator()
+            ))->subscription();
         } catch (GuzzleException | GeneralException $e) {
             throw new ReceiptException($e->getMessage());
         }
@@ -102,10 +118,6 @@ class Apple extends AbstractProvider
      */
     private function validate(ReceiptDataInterface $receiptData): ResponseInterface
     {
-        if (!$receiptData instanceof AppleReceiptData) {
-            throw new RuntimeException('Use AppleReceiptData to validate the receipt.');
-        }
-
         $this->checkAvailability();
         try {
             $response = $this->validator

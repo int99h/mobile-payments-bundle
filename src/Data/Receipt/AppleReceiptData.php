@@ -4,6 +4,7 @@
 namespace AnyKey\MobilePaymentsBundle\Data\Receipt;
 
 
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 
 /**
@@ -16,6 +17,8 @@ class AppleReceiptData implements ReceiptDataInterface
     private $receipt;
     /** @var array */
     private $options = [];
+    /** @var ReceiptGeneratorInterface|null */
+    private $receiptGenerator;
 
     public function __construct(string $receipt, bool $excludeOld = false)
     {
@@ -44,5 +47,23 @@ class AppleReceiptData implements ReceiptDataInterface
     public function isExcludeOld(): bool
     {
         return $this->options['exclude_old'];
+    }
+
+    /**
+     * @return ReceiptGeneratorInterface|null
+     */
+    public function getReceiptGenerator(): ?ReceiptGeneratorInterface
+    {
+        return $this->receiptGenerator;
+    }
+
+    /**
+     * @param ReceiptGeneratorInterface|null $receiptGenerator
+     * @return AppleReceiptData
+     */
+    public function setReceiptGenerator(?ReceiptGeneratorInterface $receiptGenerator): self
+    {
+        $this->receiptGenerator = $receiptGenerator;
+        return $this;
     }
 }
