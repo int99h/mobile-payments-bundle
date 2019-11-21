@@ -4,7 +4,7 @@
 namespace AnyKey\MobilePaymentsBundle\Parser\Apple;
 
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
-use Data\Validator\iTunes\PurchaseItem;
+use AnyKey\Data\Validator\iTunes\PurchaseItem;
 use Peekmo\JsonPath\JsonStore;
 
 class AppleReceiptGenerator implements ReceiptGeneratorInterface

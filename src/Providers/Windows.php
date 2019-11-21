@@ -9,7 +9,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
 use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use Data\Validator\WindowsStore\Validator;
+use AnyKey\Data\Validator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
 use AnyKey\MobilePaymentsBundle\Adapters\CacheAdapter;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;

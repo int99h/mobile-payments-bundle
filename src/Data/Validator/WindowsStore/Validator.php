@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Validator\WindowsStore;
+namespace AnyKey\Data\Validator\WindowsStore;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use DOMDocument;

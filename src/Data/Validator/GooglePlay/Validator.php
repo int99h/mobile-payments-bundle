@@ -1,10 +1,10 @@
 <?php
 
-namespace Data\Validator\GooglePlay;
+namespace AnyKey\Data\Validator\GooglePlay;
 
 /**
  * Class Validator
- * @package Data\Validator\GooglePlay
+ * @package AnyKey\Data\Validator\GooglePlay
  */
 class Validator
 {

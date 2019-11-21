@@ -1,10 +1,10 @@
 <?php
 
-namespace Data\Validator\GooglePlay;
+namespace AnyKey\Data\Validator\GooglePlay;
 
 /**
  * Class AbstractResponse
- * @package Data\Validator\GooglePlay
+ * @package AnyKey\Data\Validator\GooglePlay
  */
 abstract class AbstractResponse
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Validator\iTunes;
+namespace AnyKey\Data\Validator\iTunes;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use GuzzleHttp\Client as HttpClient;

@@ -5,9 +5,9 @@ namespace AnyKey\MobilePaymentsBundle\Parser;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
 use AnyKey\MobilePaymentsBundle\Parser\Apple\AppleReceiptGenerator;
-use Data\Validator\iTunes\PendingRenewalInfo;
-use Data\Validator\iTunes\PurchaseItem;
-use Data\Validator\iTunes\ResponseInterface;
+use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
+use AnyKey\Data\Validator\iTunes\PurchaseItem;
+use AnyKey\Data\Validator\iTunes\ResponseInterface;
 
 class AppleReceiptParser implements AppleReceiptParserInterface
 {

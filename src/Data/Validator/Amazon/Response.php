@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Validator\Amazon;
+namespace AnyKey\Data\Validator\Amazon;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 

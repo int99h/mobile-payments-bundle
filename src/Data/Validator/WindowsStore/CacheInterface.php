@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Validator\WindowsStore;
+namespace AnyKey\Data\Validator\WindowsStore;
 
 interface CacheInterface
 {
