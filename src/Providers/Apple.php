@@ -71,7 +71,7 @@ class Apple extends AbstractProvider
 
         try {
             $purchase = (new AppleReceiptComposer(
-                $this->validate($receiptData),
+                $this->check($receiptData),
                 $receiptData->getReceiptGenerator()
             ))->purchase();
         } catch (GuzzleException | GeneralException $e) {
@@ -97,7 +97,7 @@ class Apple extends AbstractProvider
 
         try {
             $subscription = (new AppleReceiptComposer(
-                $this->validate($receiptData),
+                $this->check($receiptData),
                 $receiptData->getReceiptGenerator()
             ))->subscription();
         } catch (GuzzleException | GeneralException $e) {
@@ -116,7 +116,7 @@ class Apple extends AbstractProvider
      * @throws InvalidReceiptException
      * @throws RuntimeException
      */
-    private function validate(ReceiptDataInterface $receiptData): ResponseInterface
+    public function check(ReceiptDataInterface $receiptData): ResponseInterface
     {
         $this->checkAvailability();
         try {
