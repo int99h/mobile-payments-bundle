@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('apple_appstore')->normalizeKeys(false)
+                    ->canBeEnabled()
                     ->children()
                         ->enumNode('mode')->values(['production', 'sandbox'])->defaultValue('sandbox')->end()
                         ->scalarNode('payment_key')->defaultNull()->end()
