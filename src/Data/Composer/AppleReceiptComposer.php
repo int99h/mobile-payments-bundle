@@ -16,7 +16,7 @@ use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\ResponseInterface;
 
 /**
  * Class AppleReceiptComposer
- * @package AnyKey\MobilePaymentsBundle\MobilePaymentsBundle\Data\Creator
+ * @package AnyKey\MobilePaymentsBundle\Data\Creator
  */
 class AppleReceiptComposer implements ReceiptComposerInterface
 {
