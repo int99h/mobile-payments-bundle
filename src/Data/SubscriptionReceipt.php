@@ -32,6 +32,16 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
     private $originalResponse = null;
 
     /**
+     * Check if receipt is expired
+     * @return bool
+     * @throws \Exception
+     */
+    public function isExpired(): bool
+    {
+        return $this->expiryDate ? $this->expiryDate->getTimestamp() > (new \DateTime())->getTimestamp() : false;
+    }
+
+    /**
      * Get expiry date of the payment
      * @return \DateTime
      */

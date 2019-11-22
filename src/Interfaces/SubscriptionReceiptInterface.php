@@ -9,6 +9,12 @@ namespace AnyKey\MobilePaymentsBundle\Interfaces;
 interface SubscriptionReceiptInterface extends PurchaseReceiptInterface
 {
     /**
+     * Check if receipt is expired
+     * @return bool
+     */
+    public function isExpired(): bool;
+
+    /**
      * Get expiry date of the payment
      * @return \DateTime
      */
