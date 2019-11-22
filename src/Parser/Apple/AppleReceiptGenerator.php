@@ -1,9 +1,9 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Parser\Apple;
+namespace AnyKey\Parser\Apple;
 
-use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
+use AnyKey\Interfaces\Parser\ReceiptGeneratorInterface;
 use AnyKey\Data\Validator\iTunes\PurchaseItem;
 use Peekmo\JsonPath\JsonStore;
 
@@ -30,7 +30,7 @@ class AppleReceiptGenerator implements ReceiptGeneratorInterface
     /**
      * Generate one-time product purchase items
      * @return \Generator
-     * @throws \AnyKey\MobilePaymentsBundle\Exception\RuntimeException
+     * @throws \AnyKey\Exception\RuntimeException
      */
     public function generatePurchases()
     {

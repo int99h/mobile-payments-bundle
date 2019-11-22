@@ -2,7 +2,7 @@
 
 namespace AnyKey\Data\Validator\iTunes;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use Carbon\Carbon;
 
 abstract class AbstractResponse

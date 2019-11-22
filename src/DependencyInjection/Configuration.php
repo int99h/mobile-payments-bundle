@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\DependencyInjection;
+namespace AnyKey\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
- * @package AnyKey\MobilePaymentsBundle\DependencyInjection
+ * @package AnyKey\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
 {
@@ -29,7 +29,6 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('apple_appstore')->normalizeKeys(false)
-                    ->canBeEnabled()
                     ->children()
                         ->enumNode('mode')->values(['production', 'sandbox'])->defaultValue('sandbox')->end()
                         ->scalarNode('payment_key')->defaultNull()->end()

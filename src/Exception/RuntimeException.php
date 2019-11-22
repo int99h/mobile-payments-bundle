@@ -1,12 +1,12 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Exception;
+namespace AnyKey\Exception;
 
 use Throwable;
 
 /**
  * Class RuntimeException
- * @package AnyKey\MobilePaymentsBundle\Exception
+ * @package AnyKey\Exception
  */
 class RuntimeException extends GeneralException
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Tests\DependencyInjection;
+namespace AnyKey\Tests\DependencyInjection;
 
-use AnyKey\MobilePaymentsBundle\DependencyInjection\MobilePaymentsExtension;
-use AnyKey\MobilePaymentsBundle\Factory\ProviderFactory;
-use AnyKey\MobilePaymentsBundle\Providers\Amazon;
-use AnyKey\MobilePaymentsBundle\Providers\Apple;
-use AnyKey\MobilePaymentsBundle\Providers\Google;
-use AnyKey\MobilePaymentsBundle\Providers\Windows;
+use AnyKey\DependencyInjection\MobilePaymentsExtension;
+use AnyKey\Factory\ProviderFactory;
+use AnyKey\Providers\Amazon;
+use AnyKey\Providers\Apple;
+use AnyKey\Providers\Google;
+use AnyKey\Providers\Windows;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class ExtensionTest
- * @package AnyKey\MobilePaymentsBundle\Tests\DependencyInjection
+ * @package AnyKey\Tests\DependencyInjection
  */
 class MobilePaymentsExtensionTest extends TestCase
 {

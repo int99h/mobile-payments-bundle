@@ -1,14 +1,14 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Data\Composer;
+namespace AnyKey\Data\Composer;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
-use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
-use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use AnyKey\Exception\RuntimeException;
+use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\Interfaces\ReceiptComposerInterface;
+use AnyKey\Interfaces\ReceiptDataInterface;
+use AnyKey\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\Data\PurchaseReceipt;
+use AnyKey\Data\SubscriptionReceipt;
 use AnyKey\Data\Validator\GooglePlay\AbstractResponse;
 use AnyKey\Data\Validator\GooglePlay\PurchaseResponse;
 use AnyKey\Data\Validator\GooglePlay\SubscriptionResponse;
@@ -16,7 +16,7 @@ use Google_Service_AndroidPublisher_ProductPurchase;
 
 /**
  * Class GoogleReceiptComposer
- * @package AnyKey\MobilePaymentsBundle\Data\Creator
+ * @package AnyKey\Data\Creator
  */
 class GoogleReceiptComposer implements ReceiptComposerInterface
 {

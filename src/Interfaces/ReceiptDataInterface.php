@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Interfaces;
+namespace AnyKey\Interfaces;
 
 
 interface ReceiptDataInterface

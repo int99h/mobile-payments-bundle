@@ -1,23 +1,23 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Providers;
+namespace AnyKey\Providers;
 
-use AnyKey\MobilePaymentsBundle\Data\Composer\GoogleReceiptComposer;
-use AnyKey\MobilePaymentsBundle\Data\Receipt\GoogleReceiptData;
-use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
-use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
-use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Data\Composer\GoogleReceiptComposer;
+use AnyKey\Data\Receipt\GoogleReceiptData;
+use AnyKey\Exception\ReceiptException;
+use AnyKey\Interfaces\AbstractProvider;
+use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\Interfaces\ReceiptDataInterface;
+use AnyKey\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\Exception\ConfigurationException;
+use AnyKey\Exception\RuntimeException;
 use AnyKey\Data\Validator\GooglePlay\PurchaseResponse;
 use AnyKey\Data\Validator\GooglePlay\SubscriptionResponse;
 use AnyKey\Data\Validator\GooglePlay\Validator;
 
 /**
  * Class Google
- * @package AnyKey\MobilePaymentsBundle\Providers
+ * @package AnyKey\Providers
  */
 class Google extends AbstractProvider
 {

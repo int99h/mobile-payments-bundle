@@ -2,7 +2,7 @@
 
 namespace AnyKey\Data\Validator\WindowsStore;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use DOMDocument;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;

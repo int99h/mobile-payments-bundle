@@ -2,7 +2,7 @@
 
 namespace AnyKey\Data\Validator\Amazon;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use Carbon\Carbon;
 
 class PurchaseItem

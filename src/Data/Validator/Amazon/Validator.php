@@ -2,7 +2,7 @@
 
 namespace AnyKey\AnyKey\Data\Validator\Amazon;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
+namespace AnyKey\Interfaces\Parser;
 
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 
 interface ReceiptGeneratorInterface
 {

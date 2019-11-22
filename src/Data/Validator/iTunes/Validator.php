@@ -2,7 +2,7 @@
 
 namespace AnyKey\Data\Validator\iTunes;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use GuzzleHttp\Client as HttpClient;
 
 class Validator
@@ -251,8 +251,8 @@ class Validator
     /**
      * @param HttpClient $client
      * @return ProductionResponse|SandboxResponse
-     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws RuntimeException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function sendRequestUsingClient(HttpClient $client)
     {

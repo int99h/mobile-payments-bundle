@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Data\Receipt;
+namespace AnyKey\Data\Receipt;
 
 
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
+use AnyKey\Interfaces\ReceiptDataInterface;
 
 class WindowsReceiptData implements ReceiptDataInterface
 {

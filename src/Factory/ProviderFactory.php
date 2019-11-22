@@ -1,14 +1,14 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Factory;
+namespace AnyKey\Factory;
 
-use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
-use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
+use AnyKey\Exception\ConfigurationException;
+use AnyKey\Exception\RuntimeException;
+use AnyKey\Interfaces\ProviderInterface;
 
 /**
  * Class ProviderFactory
- * @package AnyKey\MobilePaymentsBundle\Factory
+ * @package AnyKey\Factory
  */
 class ProviderFactory
 {

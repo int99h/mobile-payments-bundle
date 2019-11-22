@@ -1,12 +1,12 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Interfaces;
+namespace AnyKey\Interfaces;
 
-use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
+use AnyKey\Exception\ConfigurationException;
 
 /**
  * Class AbstractProvider
- * @package AnyKey\MobilePaymentsBundle\Interfaces
+ * @package AnyKey\Interfaces
  */
 abstract class AbstractProvider implements ProviderInterface
 {

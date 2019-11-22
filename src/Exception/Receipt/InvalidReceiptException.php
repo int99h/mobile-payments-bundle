@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Exception\Receipt;
+namespace AnyKey\Exception\Receipt;
 
-use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
+use AnyKey\Exception\ReceiptException;
 use Throwable;
 
 /**
  * Class InvalidReceiptException
- * @package AnyKey\MobilePaymentsBundle\Exception\Receipt
+ * @package AnyKey\Exception\Receipt
  */
 class InvalidReceiptException extends ReceiptException
 {

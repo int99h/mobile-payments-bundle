@@ -1,13 +1,13 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Factory;
+namespace AnyKey\Factory;
 
 
-use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
-use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
-use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\Data\PurchaseReceipt;
+use AnyKey\Data\SubscriptionReceipt;
+use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
 use AnyKey\Data\Validator\iTunes\PurchaseItem;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Adapters;
+namespace AnyKey\Adapters;
 
 use AnyKey\Data\Validator\WindowsStore\CacheInterface as NeededCacheInterface;
 use Symfony\Contracts\Cache\CacheInterface;

@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Exception;
+namespace AnyKey\Exception;
 
 use Throwable;
-use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
+use AnyKey\Interfaces\ProviderInterface;
 
 /**
  * Class ConfigurationException
- * @package AnyKey\MobilePaymentsBundle\Exception
+ * @package AnyKey\Exception
  */
 class ConfigurationException extends GeneralException
 {

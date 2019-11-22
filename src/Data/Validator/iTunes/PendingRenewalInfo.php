@@ -2,7 +2,7 @@
 
 namespace AnyKey\Data\Validator\iTunes;
 
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
+use AnyKey\Exception\RuntimeException;
 use ArrayAccess;
 use Carbon\Carbon;
 

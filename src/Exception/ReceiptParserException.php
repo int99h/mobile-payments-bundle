@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Exception;
+namespace AnyKey\Exception;
 
 
 use Throwable;

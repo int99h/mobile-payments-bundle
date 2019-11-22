@@ -1,17 +1,17 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Data\Composer;
+namespace AnyKey\Data\Composer;
 
 
-use AnyKey\MobilePaymentsBundle\Data\Receipt\AmazonReceiptData;
-use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
-use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
-use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
-use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use AnyKey\Data\Receipt\AmazonReceiptData;
+use AnyKey\Exception\RuntimeException;
+use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\Interfaces\ReceiptComposerInterface;
+use AnyKey\Interfaces\ReceiptDataInterface;
+use AnyKey\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\Data\PurchaseReceipt;
+use AnyKey\Data\SubscriptionReceipt;
 use AnyKey\Data\Validator\Amazon\Response;
 
 class AmazonReceiptComposer implements ReceiptComposerInterface

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
+namespace AnyKey\Interfaces\Parser;
 
 use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
 use AnyKey\Data\Validator\iTunes\PurchaseItem;

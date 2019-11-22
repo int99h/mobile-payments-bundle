@@ -1,10 +1,10 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle\Interfaces;
+namespace AnyKey\Interfaces;
 
 /**
  * Interface PurchaseReceiptInterface
- * @package AnyKey\MobilePaymentsBundle\Interfaces
+ * @package AnyKey\Interfaces
  */
 interface PurchaseReceiptInterface
 {
