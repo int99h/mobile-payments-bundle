@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\DependencyInjection;
+namespace AnyKey\MobilePaymentsBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
- * @package AnyKey\DependencyInjection
+ * @package AnyKey\MobilePaymentsBundle\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
 {

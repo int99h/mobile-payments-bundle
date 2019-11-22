@@ -1,10 +1,10 @@
 <?php
 
-namespace AnyKey\Interfaces;
+namespace AnyKey\MobilePaymentsBundle\Interfaces;
 
 /**
  * Interface SubscriptionReceiptInterface
- * @package AnyKey\Interfaces
+ * @package AnyKey\MobilePaymentsBundle\Interfaces
  */
 interface SubscriptionReceiptInterface extends PurchaseReceiptInterface
 {

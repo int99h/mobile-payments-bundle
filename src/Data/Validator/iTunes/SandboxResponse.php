@@ -1,6 +1,6 @@
 <?php
 
-namespace AnyKey\Data\Validator\iTunes;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
 class SandboxResponse extends AbstractResponse implements ResponseInterface
 {

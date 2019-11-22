@@ -1,26 +1,26 @@
 <?php
 
-namespace AnyKey\Providers;
+namespace AnyKey\MobilePaymentsBundle\Providers;
 
-use AnyKey\Data\Composer\AppleReceiptComposer;
-use AnyKey\Data\Receipt\AppleReceiptData;
-use AnyKey\Exception\GeneralException;
-use AnyKey\Exception\Receipt\FraudException;
-use AnyKey\Exception\Receipt\InvalidReceiptException;
-use AnyKey\Exception\ReceiptException;
-use AnyKey\Interfaces\AbstractProvider;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
-use AnyKey\Interfaces\ReceiptDataInterface;
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\Data\Validator\iTunes\ResponseInterface;
-use AnyKey\Data\Validator\iTunes\Validator;
-use AnyKey\Exception\ConfigurationException;
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Data\Composer\AppleReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Data\Receipt\AppleReceiptData;
+use AnyKey\MobilePaymentsBundle\Exception\GeneralException;
+use AnyKey\MobilePaymentsBundle\Exception\Receipt\FraudException;
+use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\ResponseInterface;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\Validator;
+use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Apple
- * @package AnyKey\Providers
+ * @package AnyKey\MobilePaymentsBundle\Providers
  */
 class Apple extends AbstractProvider
 {
@@ -60,7 +60,7 @@ class Apple extends AbstractProvider
      * @param ReceiptDataInterface $receiptData
      * @return PurchaseReceiptInterface
      * @throws ReceiptException
-     * @throws \AnyKey\Exception\ReceiptParserException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
      * @throws RuntimeException
      */
     public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
@@ -86,7 +86,7 @@ class Apple extends AbstractProvider
      * @param ReceiptDataInterface $receiptData
      * @return SubscriptionReceiptInterface
      * @throws ReceiptException
-     * @throws \AnyKey\Exception\ReceiptParserException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException
      * @throws RuntimeException
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface

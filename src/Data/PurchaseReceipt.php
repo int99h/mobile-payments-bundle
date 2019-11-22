@@ -1,13 +1,13 @@
 <?php
 
 
-namespace AnyKey\Data;
+namespace AnyKey\MobilePaymentsBundle\Data;
 
-use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 
 /**
  * Class PurchaseReceipt
- * @package AnyKey\Data
+ * @package AnyKey\MobilePaymentsBundle\Data
  */
 class PurchaseReceipt implements PurchaseReceiptInterface
 {

@@ -1,15 +1,15 @@
 <?php
 
 
-namespace AnyKey\Factory;
+namespace AnyKey\MobilePaymentsBundle\Factory;
 
 
-use AnyKey\Data\PurchaseReceipt;
-use AnyKey\Data\SubscriptionReceipt;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
-use AnyKey\Data\Validator\iTunes\PurchaseItem;
+use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
+use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PendingRenewalInfo;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PurchaseItem;
 
 class AppleReceiptFactory
 {

@@ -1,20 +1,20 @@
 <?php
 
-namespace AnyKey\DependencyInjection;
+namespace AnyKey\MobilePaymentsBundle\DependencyInjection;
 
-use AnyKey\Interfaces\ProviderInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Contracts\Cache\CacheInterface;
-use AnyKey\Factory\ProviderFactory;
-use AnyKey\Providers;
+use AnyKey\MobilePaymentsBundle\Factory\ProviderFactory;
+use AnyKey\MobilePaymentsBundle\Providers;
 
 /**
  * Class MobilePaymentsExtension
- * @package AnyKey\DependencyInjection
+ * @package AnyKey\MobilePaymentsBundle\DependencyInjection
  */
 class MobilePaymentsExtension extends Extension
 {

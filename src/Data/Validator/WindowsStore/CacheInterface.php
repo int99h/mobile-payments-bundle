@@ -1,6 +1,6 @@
 <?php
 
-namespace AnyKey\Data\Validator\WindowsStore;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\WindowsStore;
 
 interface CacheInterface
 {

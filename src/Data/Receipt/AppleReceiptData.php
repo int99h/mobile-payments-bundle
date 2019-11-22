@@ -1,15 +1,15 @@
 <?php
 
 
-namespace AnyKey\Data\Receipt;
+namespace AnyKey\MobilePaymentsBundle\Data\Receipt;
 
 
-use AnyKey\Interfaces\Parser\ReceiptGeneratorInterface;
-use AnyKey\Interfaces\ReceiptDataInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 
 /**
  * Class AppleReceiptData
- * @package AnyKey\Data\Receipt
+ * @package AnyKey\MobilePaymentsBundle\Data\Receipt
  */
 class AppleReceiptData implements ReceiptDataInterface
 {

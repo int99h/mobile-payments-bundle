@@ -32,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AnyKey\\\": "src/"
+            "AnyKey\\MobilePaymentsBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AnyKey\\\Tests\\": "tests/"
+            "AnyKey\\MobilePaymentsBundle\\Tests\\": "tests/"
         }
     },
     "conflict": {

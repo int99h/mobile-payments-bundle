@@ -1,12 +1,12 @@
 <?php
 
-namespace AnyKey\MobilePaymentsBundle;
+namespace AnyKey\MobilePaymentsBundle\MobilePaymentsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class MobilePaymentsBundle
- * @package AnyKey\MobilePaymentsBundle
+ * @package AnyKey\MobilePaymentsBundle\MobilePaymentsBundle
  */
 class MobilePaymentsBundle extends Bundle
 {

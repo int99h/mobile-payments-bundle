@@ -1,8 +1,8 @@
 <?php
 
-namespace AnyKey\AnyKey\Data\Validator\Amazon;
+namespace AnyKey\MobilePaymentsBundle\AnyKey\MobilePaymentsBundle\Data\Validator\Amazon;
 
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 

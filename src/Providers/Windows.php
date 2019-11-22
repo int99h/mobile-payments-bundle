@@ -1,22 +1,22 @@
 <?php
 
-namespace AnyKey\Providers;
+namespace AnyKey\MobilePaymentsBundle\Providers;
 
-use AnyKey\Data\Composer\WindowsReceiptComposer;
-use AnyKey\Exception\Receipt\InvalidReceiptException;
-use AnyKey\Exception\ReceiptException;
-use AnyKey\Interfaces\AbstractProvider;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
-use AnyKey\Interfaces\ReceiptDataInterface;
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\Data\Validator\WindowsStore\Validator;
+use AnyKey\MobilePaymentsBundle\Data\Composer\WindowsReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Exception\Receipt\InvalidReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Data\Validator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
-use AnyKey\Adapters\CacheAdapter;
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Adapters\CacheAdapter;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 
 /**
  * Class Windows
- * @package AnyKey\Providers
+ * @package AnyKey\MobilePaymentsBundle\Providers
  */
 class Windows extends AbstractProvider
 {

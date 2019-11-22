@@ -1,23 +1,23 @@
 <?php
 
-namespace AnyKey\Providers;
+namespace AnyKey\MobilePaymentsBundle\Providers;
 
-use AnyKey\Data\Composer\AmazonReceiptComposer;
-use AnyKey\Data\Receipt\AmazonReceiptData;
-use AnyKey\Exception\ReceiptException;
-use AnyKey\Interfaces\AbstractProvider;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
-use AnyKey\Interfaces\ReceiptDataInterface;
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\Data\Validator\Amazon\Response;
-use AnyKey\Data\Validator\Amazon\Validator;
+use AnyKey\MobilePaymentsBundle\Data\Composer\AmazonReceiptComposer;
+use AnyKey\MobilePaymentsBundle\Data\Receipt\AmazonReceiptData;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
+use AnyKey\MobilePaymentsBundle\Interfaces\AbstractProvider;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Data\Validator\Amazon\Response;
+use AnyKey\MobilePaymentsBundle\Data\Validator\Amazon\Validator;
 use GuzzleHttp\Exception\GuzzleException;
-use AnyKey\Exception\ConfigurationException;
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Exception\ConfigurationException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 
 /**
  * Class Amazon
- * @package AnyKey\Providers
+ * @package AnyKey\MobilePaymentsBundle\Providers
  */
 class Amazon extends AbstractProvider
 {

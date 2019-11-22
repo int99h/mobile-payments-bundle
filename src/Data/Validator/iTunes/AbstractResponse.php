@@ -1,8 +1,8 @@
 <?php
 
-namespace AnyKey\Data\Validator\iTunes;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use Carbon\Carbon;
 
 abstract class AbstractResponse

@@ -1,8 +1,8 @@
 <?php
 
-namespace AnyKey\Data\Validator\Amazon;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\Amazon;
 
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 
 class Response
 {

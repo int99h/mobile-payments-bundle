@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AnyKey\Data\Receipt;
+namespace AnyKey\MobilePaymentsBundle\Data\Receipt;
 
 
-use AnyKey\Interfaces\ReceiptDataInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 
 class GoogleReceiptData implements ReceiptDataInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AnyKey\Data\Validator\iTunes;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
 use Carbon\Carbon;
 

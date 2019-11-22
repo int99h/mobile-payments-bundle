@@ -1,10 +1,10 @@
 <?php
 
-namespace AnyKey\Exception;
+namespace AnyKey\MobilePaymentsBundle\Exception;
 
 /**
  * Class GeneralException
- * @package AnyKey\Exception
+ * @package AnyKey\MobilePaymentsBundle\Exception
  */
 class GeneralException extends \Exception
 {

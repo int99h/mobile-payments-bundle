@@ -1,12 +1,12 @@
 <?php
 
-namespace AnyKey\Data;
+namespace AnyKey\MobilePaymentsBundle\Data;
 
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 
 /**
  * Class SubscriptionReceipt
- * @package AnyKey\Data
+ * @package AnyKey\MobilePaymentsBundle\Data
  */
 class SubscriptionReceipt implements SubscriptionReceiptInterface
 {

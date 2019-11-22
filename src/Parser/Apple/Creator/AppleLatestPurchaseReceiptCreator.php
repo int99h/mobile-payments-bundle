@@ -1,11 +1,11 @@
 <?php
 
 
-namespace AnyKey\Parser\Apple\Creator;
+namespace AnyKey\MobilePaymentsBundle\Parser\Apple\Creator;
 
-use AnyKey\Factory\AppleReceiptFactory;
-use AnyKey\Interfaces\Parser\AppleReceiptParserInterface;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Factory\AppleReceiptFactory;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
 
 class AppleLatestPurchaseReceiptCreator
 {

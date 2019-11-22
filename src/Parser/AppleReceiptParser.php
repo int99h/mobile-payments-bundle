@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\Parser;
+namespace AnyKey\MobilePaymentsBundle\Parser;
 
-use AnyKey\Interfaces\Parser\AppleReceiptParserInterface;
-use AnyKey\Interfaces\Parser\ReceiptGeneratorInterface;
-use AnyKey\Parser\Apple\AppleReceiptGenerator;
-use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
-use AnyKey\Data\Validator\iTunes\PurchaseItem;
-use AnyKey\Data\Validator\iTunes\ResponseInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\AppleReceiptParserInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Parser\Apple\AppleReceiptGenerator;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PendingRenewalInfo;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PurchaseItem;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\ResponseInterface;
 
 class AppleReceiptParser implements AppleReceiptParserInterface
 {
@@ -94,7 +94,7 @@ class AppleReceiptParser implements AppleReceiptParserInterface
     /**
      * Parse purchases from an Apple receipt
      * @return PurchaseItem[]
-     * @throws \AnyKey\Exception\RuntimeException
+     * @throws \AnyKey\MobilePaymentsBundle\Exception\RuntimeException
      */
     public function parsePurchases(): array
     {

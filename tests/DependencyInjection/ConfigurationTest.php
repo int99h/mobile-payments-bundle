@@ -1,8 +1,8 @@
 <?php
 
-namespace AnyKey\Tests\DependencyInjection;
+namespace AnyKey\MobilePaymentsBundle\Tests\DependencyInjection;
 
-use AnyKey\DependencyInjection\Configuration;
+use AnyKey\MobilePaymentsBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\NodeInterface;

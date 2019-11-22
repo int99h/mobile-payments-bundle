@@ -1,10 +1,10 @@
 <?php
 
 
-namespace AnyKey\Interfaces\Parser;
+namespace AnyKey\MobilePaymentsBundle\Interfaces\Parser;
 
-use AnyKey\Data\Validator\iTunes\PendingRenewalInfo;
-use AnyKey\Data\Validator\iTunes\PurchaseItem;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PendingRenewalInfo;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\PurchaseItem;
 
 interface AppleReceiptParserInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace AnyKey\Data\Validator\WindowsStore;
+namespace AnyKey\MobilePaymentsBundle\Data\Validator\WindowsStore;
 
-use AnyKey\Exception\RuntimeException;
+use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use DOMDocument;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;

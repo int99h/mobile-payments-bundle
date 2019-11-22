@@ -1,22 +1,22 @@
 <?php
 
-namespace AnyKey\Data\Composer;
+namespace AnyKey\MobilePaymentsBundle\Data\Composer;
 
-use AnyKey\Exception\ReceiptParserException;
-use AnyKey\Interfaces\Parser\ReceiptGeneratorInterface;
-use AnyKey\Interfaces\PurchaseReceiptInterface;
-use AnyKey\Interfaces\ReceiptComposerInterface;
-use AnyKey\Interfaces\SubscriptionReceiptInterface;
-use AnyKey\Data\PurchaseReceipt;
-use AnyKey\Data\SubscriptionReceipt;
-use AnyKey\Parser\Apple\Creator\AppleLatestPurchaseReceiptCreator;
-use AnyKey\Parser\Apple\Creator\AppleLatestSubscriptionReceiptCreator;
-use AnyKey\Parser\AppleReceiptParser;
-use AnyKey\Data\Validator\iTunes\ResponseInterface;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptParserException;
+use AnyKey\MobilePaymentsBundle\Interfaces\Parser\ReceiptGeneratorInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\PurchaseReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptComposerInterface;
+use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
+use AnyKey\MobilePaymentsBundle\Data\PurchaseReceipt;
+use AnyKey\MobilePaymentsBundle\Data\SubscriptionReceipt;
+use AnyKey\MobilePaymentsBundle\Parser\Apple\Creator\AppleLatestPurchaseReceiptCreator;
+use AnyKey\MobilePaymentsBundle\Parser\Apple\Creator\AppleLatestSubscriptionReceiptCreator;
+use AnyKey\MobilePaymentsBundle\Parser\AppleReceiptParser;
+use AnyKey\MobilePaymentsBundle\Data\Validator\iTunes\ResponseInterface;
 
 /**
  * Class AppleReceiptComposer
- * @package AnyKey\Data\Creator
+ * @package AnyKey\MobilePaymentsBundle\MobilePaymentsBundle\Data\Creator
  */
 class AppleReceiptComposer implements ReceiptComposerInterface
 {

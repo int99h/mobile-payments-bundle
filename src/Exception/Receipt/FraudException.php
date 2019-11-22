@@ -1,13 +1,13 @@
 <?php
 
-namespace AnyKey\Exception\Receipt;
+namespace AnyKey\MobilePaymentsBundle\Exception\Receipt;
 
-use AnyKey\Exception\ReceiptException;
+use AnyKey\MobilePaymentsBundle\Exception\ReceiptException;
 use Throwable;
 
 /**
  * Class FraudException
- * @package AnyKey\Exception\Receipt
+ * @package AnyKey\MobilePaymentsBundle\Exception\Receipt
  */
 class FraudException extends ReceiptException
 {
