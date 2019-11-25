@@ -11,7 +11,7 @@ use AnyKey\MobilePaymentsBundle\Interfaces\ReceiptDataInterface;
 use AnyKey\MobilePaymentsBundle\Interfaces\SubscriptionReceiptInterface;
 use AnyKey\MobilePaymentsBundle\Data\Validator\WindowsStore\Validator;
 use Symfony\Contracts\Cache\CacheInterface;
-use AnyKey\MobilePaymentsBundle\Adapters\CacheAdapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface as CacheAdapterInterface;
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 
 /**
@@ -24,7 +24,7 @@ class Windows extends AbstractProvider
 
     /** @var Validator */
     protected $validator;
-    /** @var CacheAdapter */
+    /** @var CacheAdapterInterface */
     private $cache;
     /** @var bool */
     private $response;
@@ -34,13 +34,10 @@ class Windows extends AbstractProvider
      * @param bool $enabled
      * @param CacheInterface|null $cache
      */
-    public function __construct(bool $enabled, CacheInterface $cache = null)
+    public function __construct(bool $enabled, CacheAdapterInterface $cache)
     {
         $this->setEnabled($enabled);
         if ($this->isEnabled()) {
-            if ($cache) {
-                $this->cache = new CacheAdapter($cache);
-            }
             $this->initValidator();
         }
     }
@@ -53,6 +50,7 @@ class Windows extends AbstractProvider
      * @throws InvalidReceiptException
      * @throws RuntimeException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function validatePurchase(ReceiptDataInterface $receiptData): PurchaseReceiptInterface
     {
@@ -72,6 +70,7 @@ class Windows extends AbstractProvider
      * @throws InvalidReceiptException
      * @throws RuntimeException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function validateSubscription(ReceiptDataInterface $receiptData): SubscriptionReceiptInterface
     {
@@ -89,6 +88,7 @@ class Windows extends AbstractProvider
      * @return bool|mixed
      * @throws RuntimeException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     private function validate(ReceiptDataInterface $receiptData)
     {

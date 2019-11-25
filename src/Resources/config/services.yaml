@@ -7,4 +7,5 @@ services:
     AnyKey\MobilePaymentsBundle\Providers\Amazon: ~
     AnyKey\MobilePaymentsBundle\Providers\Apple: ~
     AnyKey\MobilePaymentsBundle\Providers\Google: ~
-    AnyKey\MobilePaymentsBundle\Providers\Windows: ~
+    AnyKey\MobilePaymentsBundle\Providers\Windows:
+        autowire: true

@@ -15,7 +15,7 @@ class Validator
      */
     protected $cache;
 
-    public function __construct(CacheAdapterInterface $cache = null)
+    public function __construct(CacheAdapterInterface $cache)
     {
         $this->cache = $cache;
     }
@@ -63,7 +63,7 @@ class Validator
         $cacheKey = 'store-receipt-validate.windowsstore.' . $certificateId;
         $certificateCacheItem = $this->cache->getItem($cacheKey);
 
-        $certificate = $this->cache !== null && $this->cache->hasItem($cacheKey) ? $certificateCacheItem->get() : null;
+        $certificate = $this->cache->hasItem($cacheKey) ? $certificateCacheItem->get() : null;
 
         if ($certificate === null) {
             $maxCertificateSize = 10000;
