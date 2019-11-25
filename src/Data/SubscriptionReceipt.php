@@ -38,7 +38,7 @@ class SubscriptionReceipt implements SubscriptionReceiptInterface
      */
     public function isExpired(): bool
     {
-        return $this->expiryDate ? $this->expiryDate->getTimestamp() > (new \DateTime())->getTimestamp() : false;
+        return $this->expiryDate ? (new \DateTime())->getTimestamp() > $this->expiryDate->getTimestamp() : false;
     }
 
     /**
