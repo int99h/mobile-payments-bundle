@@ -4,7 +4,6 @@ namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use ArrayAccess;
-use Carbon\Carbon;
 
 class PurchaseItem implements ArrayAccess
 {
@@ -46,28 +45,28 @@ class PurchaseItem implements ArrayAccess
     /**
      * purchase_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $purchase_date;
 
     /**
      * original_purchase_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $original_purchase_date;
 
     /**
      * expires_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $expires_date;
 
     /**
      * cancellation_date.
      *
-     * @var Carbon|null
+     * @var \DateTime|null
      */
     protected $cancellation_date;
 
@@ -159,27 +158,27 @@ class PurchaseItem implements ArrayAccess
         }
 
         if (array_key_exists('purchase_date_ms', $this->raw_data)) {
-            $this->purchase_date = Carbon::createFromTimestampUTC(
+            $this->purchase_date = (new \DateTime())->setTimestamp(
                 (int) round($this->raw_data['purchase_date_ms'] / 1000)
             );
         }
 
         if (array_key_exists('original_purchase_date_ms', $this->raw_data)) {
-            $this->original_purchase_date = Carbon::createFromTimestampUTC(
+            $this->original_purchase_date = (new \DateTime())->setTimestamp(
                 (int) round($this->raw_data['original_purchase_date_ms'] / 1000)
             );
         }
 
         if (array_key_exists('expires_date_ms', $this->raw_data)) {
-            $this->expires_date = Carbon::createFromTimestampUTC((int) round($this->raw_data['expires_date_ms'] / 1000));
+            $this->expires_date =(new \DateTime())->setTimestamp((int) round($this->raw_data['expires_date_ms'] / 1000));
         } elseif (array_key_exists('expires_date', $this->raw_data) && is_numeric($this->raw_data['expires_date'])) {
-            $this->expires_date = Carbon::createFromTimestampUTC(
+            $this->expires_date = (new \DateTime())->setTimestamp(
                 (int) round((int) $this->raw_data['expires_date'] / 1000)
             );
         }
 
         if (array_key_exists('cancellation_date_ms', $this->raw_data)) {
-            $this->cancellation_date = Carbon::createFromTimestampUTC(
+            $this->cancellation_date = (new \DateTime())->setTimestamp(
                 (int) round($this->raw_data['cancellation_date_ms'] / 1000)
             );
         }
@@ -260,33 +259,33 @@ class PurchaseItem implements ArrayAccess
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getPurchaseDate(): ?Carbon
+    public function getPurchaseDate(): ?\DateTime
     {
         return $this->purchase_date;
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getOriginalPurchaseDate(): ?Carbon
+    public function getOriginalPurchaseDate(): ?\DateTime
     {
         return $this->original_purchase_date;
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getExpiresDate(): ?Carbon
+    public function getExpiresDate(): ?\DateTime
     {
         return $this->expires_date;
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getCancellationDate(): ?Carbon
+    public function getCancellationDate(): ?\DateTime
     {
         return $this->cancellation_date;
     }

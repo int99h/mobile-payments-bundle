@@ -6,12 +6,16 @@ use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use DOMDocument;
 use RobRichards\XMLSecLibs\XMLSecEnc;
 use RobRichards\XMLSecLibs\XMLSecurityDSig;
+use Symfony\Component\Cache\Adapter\AdapterInterface as CacheAdapterInterface;
 
 class Validator
 {
+    /**
+     * @var CacheAdapterInterface
+     */
     protected $cache;
 
-    public function __construct(CacheInterface $cache = null)
+    public function __construct(CacheAdapterInterface $cache = null)
     {
         $this->cache = $cache;
     }
@@ -23,6 +27,7 @@ class Validator
      * @return bool
      * @throws RuntimeException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function validate($receipt)
     {
@@ -50,12 +55,15 @@ class Validator
      * @param string $certificateId
      * @return resource
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     protected function retrieveCertificate($certificateId)
     {
         // Retrieve from cache if a cache handler has been set.
         $cacheKey = 'store-receipt-validate.windowsstore.' . $certificateId;
-        $certificate = $this->cache !== null ? $this->cache->get($cacheKey) : null;
+        $certificateCacheItem = $this->cache->getItem($cacheKey);
+
+        $certificate = $this->cache !== null && $this->cache->hasItem($cacheKey) ? $certificateCacheItem->get() : null;
 
         if ($certificate === null) {
             $maxCertificateSize = 10000;
@@ -74,7 +82,9 @@ class Validator
 
             // Write back to cache.
             if ($this->cache !== null) {
-                $this->cache->put($cacheKey, $certificate, 3600);
+                $certificateCacheItem->set($certificate);
+                $certificateCacheItem->expiresAfter(3600);
+                $this->cache->save($certificateCacheItem);
             }
         }
 

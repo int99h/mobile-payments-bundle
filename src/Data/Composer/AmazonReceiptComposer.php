@@ -56,13 +56,13 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
     {
         $latestReceipt = $this->response->getPurchases()[0];
 
-        $payTime = round($latestReceipt->getPurchaseDate()->toDateTime()->getTimestamp()/1000);
+        $payTime = round($latestReceipt->getPurchaseDate()->getTimestamp()/1000);
 
         $isRenewing = !is_null($latestReceipt->getRenewalDate());
         if ($isRenewing) {
-            $expiryDate = $latestReceipt->getRenewalDate()->toDateTime();
+            $expiryDate = $latestReceipt->getRenewalDate();
         } else {
-            $expiryDate = $latestReceipt->getCancellationDate()->toDateTime();
+            $expiryDate = $latestReceipt->getCancellationDate();
         }
 
         if (!$this->receiptData->getSubscriptionTrialTimestamp()) {
@@ -99,7 +99,7 @@ class AmazonReceiptComposer implements ReceiptComposerInterface
     public function purchase(): PurchaseReceiptInterface
     {
         $latestReceipt = $this->response->getPurchases()[0];
-        $payTime = round($latestReceipt->getPurchaseDate()->toDateTime()->getTimestamp()/1000);
+        $payTime = round($latestReceipt->getPurchaseDate()->getTimestamp()/1000);
         $receipt = (new PurchaseReceipt())
             ->setProductId($latestReceipt->getProductId())
             ->setTransactionId("{$latestReceipt->getTransactionId()}_{$payTime}")

@@ -2,7 +2,6 @@
 
 namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
-use Carbon\Carbon;
 
 interface ResponseInterface extends EnvironmentResponseInterface
 {
@@ -86,11 +85,11 @@ interface ResponseInterface extends EnvironmentResponseInterface
 
     public function getAppItemId(): string;
 
-    public function getOriginalPurchaseDate(): ?Carbon;
+    public function getOriginalPurchaseDate(): ?\DateTime;
 
-    public function getRequestDate(): ?Carbon;
+    public function getRequestDate(): ?\DateTime;
 
-    public function getReceiptCreationDate(): ?Carbon;
+    public function getReceiptCreationDate(): ?\DateTime;
 
     /**
      * @return PendingRenewalInfo[]

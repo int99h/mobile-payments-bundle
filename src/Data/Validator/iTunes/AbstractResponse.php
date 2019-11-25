@@ -3,7 +3,7 @@
 namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
-use Carbon\Carbon;
+
 
 abstract class AbstractResponse
 {
@@ -31,21 +31,21 @@ abstract class AbstractResponse
     /**
      * original_purchase_date
      *
-     * @var Carbon|null
+     * @var \DateTime|null
      */
     protected $original_purchase_date;
 
     /**
      * request date
      *
-     * @var Carbon|null
+     * @var \DateTime|null
      */
     protected $request_date;
 
     /**
      * The date when the app receipt was created
      *
-     * @var Carbon|null
+     * @var \DateTime|null
      */
     protected $receipt_creation_date;
 
@@ -188,25 +188,25 @@ abstract class AbstractResponse
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getOriginalPurchaseDate(): ?Carbon
+    public function getOriginalPurchaseDate(): ?\DateTime
     {
         return $this->original_purchase_date;
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getRequestDate(): ?Carbon
+    public function getRequestDate(): ?\DateTime
     {
         return $this->request_date;
     }
 
     /**
-     * @return Carbon|null
+     * @return \DateTime|null
      */
-    public function getReceiptCreationDate(): ?Carbon
+    public function getReceiptCreationDate(): ?\DateTime
     {
         return $this->receipt_creation_date;
     }
@@ -306,19 +306,19 @@ abstract class AbstractResponse
         $this->purchases = [];
 
         if (array_key_exists('original_purchase_date_ms', $this->raw_data['receipt'])) {
-            $this->original_purchase_date = Carbon::createFromTimestampUTC(
+            $this->original_purchase_date = (new \DateTime())->setTimestamp(
                 (int)round($this->raw_data['receipt']['original_purchase_date_ms'] / 1000)
             );
         }
 
         if (array_key_exists('request_date_ms', $this->raw_data['receipt'])) {
-            $this->request_date = Carbon::createFromTimestampUTC(
+            $this->request_date = (new \DateTime())->setTimestamp(
                 (int)round($this->raw_data['receipt']['request_date_ms'] / 1000)
             );
         }
 
         if (array_key_exists('receipt_creation_date_ms', $this->raw_data['receipt'])) {
-            $this->receipt_creation_date = Carbon::createFromTimestampUTC(
+            $this->receipt_creation_date = (new \DateTime())->setTimestamp(
                 (int)round($this->raw_data['receipt']['receipt_creation_date_ms'] / 1000)
             );
         }
@@ -342,7 +342,7 @@ abstract class AbstractResponse
             usort(
                 $this->latest_receipt_info,
                 function (PurchaseItem $a, PurchaseItem $b) {
-                    return $b->getPurchaseDate()->timestamp - $a->getPurchaseDate()->timestamp;
+                    return $b->getPurchaseDate()->getTimestamp() - $a->getPurchaseDate()->getTimestamp();
                 }
             );
         }

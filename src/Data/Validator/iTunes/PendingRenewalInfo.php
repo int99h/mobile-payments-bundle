@@ -4,7 +4,6 @@ namespace AnyKey\MobilePaymentsBundle\Data\Validator\iTunes;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
 use ArrayAccess;
-use Carbon\Carbon;
 
 class PendingRenewalInfo implements ArrayAccess
 {
@@ -94,7 +93,7 @@ class PendingRenewalInfo implements ArrayAccess
     /**
      * he time at which the grace period for subscription renewals expires.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $grace_period_expires_date;
 
@@ -148,7 +147,7 @@ class PendingRenewalInfo implements ArrayAccess
         }
 
         if (array_key_exists('grace_period_expires_date_ms', $this->raw_data)) {
-            $this->grace_period_expires_date = Carbon::createFromTimestampUTC(
+            $this->grace_period_expires_date = (new \DateTime())->setTimestamp(
                 (int) round($this->raw_data['grace_period_expires_date_ms'] / 1000)
             );
         }
@@ -248,9 +247,9 @@ class PendingRenewalInfo implements ArrayAccess
 
     /**
      * Grace Period Expires Date
-     * @return Carbon
+     * @return \DateTime
      */
-    public function getGracePeriodExpiresDate(): ?Carbon
+    public function getGracePeriodExpiresDate(): ?\DateTime
     {
         return $this->grace_period_expires_date;
     }

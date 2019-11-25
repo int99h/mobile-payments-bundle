@@ -61,7 +61,7 @@ class AppleReceiptFactory
     ): SubscriptionReceiptInterface
     {
         $receipt = (new SubscriptionReceipt())
-            ->setExpiryDate($purchaseItem->getExpiresDate()->toDateTime())
+            ->setExpiryDate($purchaseItem->getExpiresDate())
             ->setProductId($purchaseItem->getProductId())
             ->setTransactionId($purchaseItem->getTransactionId())
             ->setOrderId($purchaseItem->getOriginalTransactionId())

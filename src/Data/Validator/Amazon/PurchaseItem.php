@@ -3,7 +3,6 @@
 namespace AnyKey\MobilePaymentsBundle\Data\Validator\Amazon;
 
 use AnyKey\MobilePaymentsBundle\Exception\RuntimeException;
-use Carbon\Carbon;
 
 class PurchaseItem
 {
@@ -38,21 +37,21 @@ class PurchaseItem
     /**
      * purchase_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $_purchase_date;
 
     /**
      * cancellation_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $_cancellation_date;
 
     /**
      * renewal_date.
      *
-     * @var Carbon
+     * @var \DateTime
      */
     protected $_renewal_date;
 
@@ -89,7 +88,7 @@ class PurchaseItem
     }
 
     /**
-     * @return Carbon
+     * @return \DateTime
      */
     public function getPurchaseDate()
     {
@@ -97,7 +96,7 @@ class PurchaseItem
     }
 
     /**
-     * @return Carbon
+     * @return \DateTime
      */
     public function getCancellationDate()
     {
@@ -105,7 +104,7 @@ class PurchaseItem
     }
 
     /**
-     * @return Carbon
+     * @return \DateTime
      */
     public function getRenewalDate()
     {
@@ -153,17 +152,17 @@ class PurchaseItem
         }
 
         if (array_key_exists('purchaseDate', $jsonResponse) && !empty($jsonResponse['purchaseDate'])) {
-            $this->_purchase_date = Carbon::createFromTimestampUTC(intval(round($jsonResponse['purchaseDate'] / 1000)));
+            $this->_purchase_date = (new \DateTime())->setTimestamp(intval(round($jsonResponse['purchaseDate'] / 1000)));
         }
 
         if (array_key_exists('cancelDate', $jsonResponse) && !empty($jsonResponse['cancelDate'])) {
-            $this->_cancellation_date = Carbon::createFromTimestampUTC(
+            $this->_cancellation_date = (new \DateTime())->setTimestamp(
                 intval(round($jsonResponse['cancelDate'] / 1000))
             );
         }
 
         if (array_key_exists('renewalDate', $jsonResponse) && !empty($jsonResponse['renewalDate'])) {
-            $this->_renewal_date = Carbon::createFromTimestampUTC(intval(round($jsonResponse['renewalDate'] / 1000)));
+            $this->_renewal_date = (new \DateTime())->setTimestamp(intval(round($jsonResponse['renewalDate'] / 1000)));
         }
 
         return $this;
